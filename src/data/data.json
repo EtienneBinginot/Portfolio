@@ -73,6 +73,26 @@
           "measuredAt": "2026-09-01"
         }
       ],
+      "chart": {
+        "type": "timeseries",
+        "title": "[placeholder] requêtes/s avant et après mise en cache",
+        "unit": "req/s",
+        "scale": "log",
+        "caption": "Source : placeholder — date de mesure : 2026-09-01",
+        "source": "placeholder",
+        "series": [
+          {
+            "name": "requêtes/s",
+            "points": [
+              { "label": "S-4", "value": 2 },
+              { "label": "S-3", "value": 8 },
+              { "label": "S-2", "value": 40 },
+              { "label": "S-1", "value": 150 },
+              { "label": "S0", "value": 600 }
+            ]
+          }
+        ]
+      },
       "retrospective": "[placeholder]"
     }
   ],

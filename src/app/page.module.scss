@@ -72,28 +72,12 @@
   gap: var(--space-4);
 }
 
-.metricValue {
-  font-family: var(--font-mono), monospace;
-  font-variant-numeric: tabular-nums;
-  font-size: var(--fs-xl);
-  color: var(--accent-green);
-  display: block;
-}
+// --- Graphiques ------------------------------------------------------------
 
-.metricLabel {
-  font-family: var(--font-read), sans-serif;
-  font-size: var(--fs-sm);
-  color: var(--text);
-  display: block;
-  margin-top: var(--space-2);
-}
-
-.metricMethod {
-  font-family: var(--font-read), sans-serif;
-  font-size: var(--fs-xs);
-  color: var(--text-muted);
-  display: block;
-  margin-top: var(--space-2);
+.chartGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-6);
 }
 
 // --- Boutons ---------------------------------------------------------------

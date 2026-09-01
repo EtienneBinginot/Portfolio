@@ -40,14 +40,34 @@ export const ChartSeriesSchema = z.object({
   points: z.array(ChartPointSchema),
 });
 
-export const ChartSchema = z.object({
-  type: z.enum(["bar-compare", "timeseries", "distribution"]),
-  title: z.string().min(1),
-  unit: z.string(),
-  caption: z.string().min(1, "caption obligatoire : source + date de mesure"),
-  source: z.string().min(1),
-  series: z.array(ChartSeriesSchema).min(1),
-});
+export const ChartSchema = z
+  .object({
+    type: z.enum(["bar-compare", "timeseries", "distribution"]),
+    title: z.string().min(1),
+    unit: z.string(),
+    // Échelle explicite, "linear" par défaut (rétro-compatible avec les
+    // charts existants qui n'ont pas ce champ). Le signalement visuel de
+    // l'échelle log est porté par les composants Chart, pas par le schéma.
+    scale: z.enum(["linear", "log"]).default("linear"),
+    caption: z.string().min(1, "caption obligatoire : source + date de mesure"),
+    source: z.string().min(1),
+    series: z.array(ChartSeriesSchema).min(1),
+  })
+  .superRefine((chart, ctx) => {
+    if (chart.scale !== "log") return;
+    chart.series.forEach((series, si) => {
+      series.points.forEach((point, pi) => {
+        if (point.value <= 0) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: ["series", si, "points", pi, "value"],
+            message:
+              "échelle logarithmique incompatible avec une valeur <= 0 (log indéfini)",
+          });
+        }
+      });
+    });
+  });
 
 export const MetaSchema = z.object({
   name: z.string(),
@@ -161,6 +181,7 @@ export const DataSchema = z
 
 export type Data = z.infer<typeof DataSchema>;
 export type Metric = z.infer<typeof MetricSchema>;
+export type Chart = z.infer<typeof ChartSchema>;
 export type Project = z.infer<typeof ProjectSchema>;
 export type Case = z.infer<typeof CaseSchema>;
 export type Skill = z.infer<typeof SkillSchema>;
