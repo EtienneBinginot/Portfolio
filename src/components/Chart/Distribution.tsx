@@ -1,38 +1,43 @@
 import type { Chart as ChartData } from "@/lib/schema";
 import {
-  buildScale,
-  buildYTicks,
+  AXIS_LABEL_GAP,
+  BAR_GAP,
+  chartA11yIds,
+  computeBarWidth,
   describeChart,
-  labelStep,
+  domainMaxOf,
+  formatYAxisTick,
   MARGIN,
   PLOT_H,
   PLOT_W,
+  buildScale,
+  buildYTicks,
+  labelStep,
   quantize,
-  slugify,
+  shouldShowLabel,
+  VALUE_LABEL_OFFSET,
   VIEW_H,
   VIEW_W,
+  yPosition,
 } from "./scale";
+import YAxis from "./YAxis";
 import styles from "./Chart.module.scss";
 
-const BAR_GAP = 4;
 const MAX_ANNOTATED_BARS = 8;
 
 type DistributionProps = { chart: ChartData };
 
 export default function Distribution({ chart }: DistributionProps) {
-  const titleId = `${slugify(chart.title)}-title`;
-  const descId = `${slugify(chart.title)}-desc`;
+  const { titleId, descId } = chartA11yIds(chart.title);
 
   const points = chart.series[0]?.points ?? [];
-  const domainMax = Math.max(0, ...points.map((p) => p.value));
+  const domainMax = domainMaxOf(points);
   const yTicks = buildYTicks(chart.scale, domainMax);
   const yScale = buildScale(chart.scale, domainMax, PLOT_H);
   const step = labelStep(points.length);
   const showAnnotations = points.length <= MAX_ANNOTATED_BARS;
 
-  const barWidth = quantize(
-    (PLOT_W - BAR_GAP * (points.length - 1)) / Math.max(points.length, 1),
-  );
+  const barWidth = computeBarWidth(PLOT_W, points.length, BAR_GAP);
 
   return (
     <svg
@@ -44,35 +49,19 @@ export default function Distribution({ chart }: DistributionProps) {
       <title id={titleId}>{chart.title}</title>
       <desc id={descId}>{describeChart(chart)}</desc>
 
-      {yTicks.map((tick) => {
-        const y = quantize(MARGIN.top + PLOT_H - yScale(tick));
-        return (
-          <g key={tick}>
-            <line
-              className={styles.gridline}
-              x1={MARGIN.left}
-              y1={y}
-              x2={MARGIN.left + PLOT_W}
-              y2={y}
-            />
-            <text
-              className={styles.axisLabel}
-              x={MARGIN.left - 8}
-              y={y}
-              textAnchor="end"
-              dominantBaseline="middle"
-            >
-              {Math.round(tick)}
-            </text>
-          </g>
-        );
-      })}
+      <YAxis
+        ticks={yTicks}
+        yScale={yScale}
+        formatTick={(tick, index) =>
+          formatYAxisTick(chart, tick, index === yTicks.length - 1)
+        }
+      />
 
       {points.map((point, index) => {
         const barHeight = quantize(yScale(point.value));
         const x = quantize(MARGIN.left + index * (barWidth + BAR_GAP));
-        const y = quantize(MARGIN.top + PLOT_H - barHeight);
-        const showLabel = index % step === 0 || index === points.length - 1;
+        const y = yPosition(yScale, point.value);
+        const showLabel = shouldShowLabel(index, points.length, step);
 
         return (
           <g key={point.label}>
@@ -90,7 +79,7 @@ export default function Distribution({ chart }: DistributionProps) {
               <text
                 className={styles.valueLabel}
                 x={x + barWidth / 2}
-                y={y - 6}
+                y={y - VALUE_LABEL_OFFSET}
                 textAnchor="middle"
               >
                 {point.value}
@@ -100,7 +89,7 @@ export default function Distribution({ chart }: DistributionProps) {
               <text
                 className={styles.axisLabel}
                 x={x + barWidth / 2}
-                y={VIEW_H - MARGIN.bottom + 20}
+                y={VIEW_H - MARGIN.bottom + AXIS_LABEL_GAP}
                 textAnchor="middle"
               >
                 {point.label}

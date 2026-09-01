@@ -1,16 +1,24 @@
 import type { Chart as ChartData } from "@/lib/schema";
 import {
-  buildScale,
-  buildYTicks,
+  AXIS_LABEL_GAP,
+  BAR_GAP,
+  chartA11yIds,
+  computeBarWidth,
   describeChart,
+  domainMaxOf,
+  formatYAxisTick,
   MARGIN,
   PLOT_H,
   PLOT_W,
+  buildScale,
+  buildYTicks,
   quantize,
-  slugify,
+  VALUE_LABEL_OFFSET,
   VIEW_H,
   VIEW_W,
+  yPosition,
 } from "./scale";
+import YAxis from "./YAxis";
 import styles from "./Chart.module.scss";
 
 const BAR_COLORS = [
@@ -19,26 +27,18 @@ const BAR_COLORS = [
   "var(--accent-cyan)",
 ];
 
-const BAR_GAP = 4;
-
 type BarCompareProps = { chart: ChartData };
 
 export default function BarCompare({ chart }: BarCompareProps) {
-  const titleId = `${slugify(chart.title)}-title`;
-  const descId = `${slugify(chart.title)}-desc`;
+  const { titleId, descId } = chartA11yIds(chart.title);
 
-  const domainMax = Math.max(
-    0,
-    ...chart.series.flatMap((s) => s.points.map((p) => p.value)),
-  );
+  const domainMax = domainMaxOf(chart.series.flatMap((s) => s.points));
   const yTicks = buildYTicks(chart.scale, domainMax);
   const yScale = buildScale(chart.scale, domainMax, PLOT_H);
 
   const clusterWidth = PLOT_W / chart.series.length;
   const pointCount = chart.series[0]?.points.length ?? 0;
-  const barWidth = quantize(
-    (clusterWidth - BAR_GAP * (pointCount - 1)) / Math.max(pointCount, 1),
-  );
+  const barWidth = computeBarWidth(clusterWidth, pointCount, BAR_GAP);
 
   const legendLabels = chart.series[0]?.points.map((p) => p.label) ?? [];
 
@@ -70,29 +70,13 @@ export default function BarCompare({ chart }: BarCompareProps) {
         <title id={titleId}>{chart.title}</title>
         <desc id={descId}>{describeChart(chart)}</desc>
 
-        {yTicks.map((tick) => {
-          const y = quantize(MARGIN.top + PLOT_H - yScale(tick));
-          return (
-            <g key={tick}>
-              <line
-                className={styles.gridline}
-                x1={MARGIN.left}
-                y1={y}
-                x2={MARGIN.left + PLOT_W}
-                y2={y}
-              />
-              <text
-                className={styles.axisLabel}
-                x={MARGIN.left - 8}
-                y={y}
-                textAnchor="end"
-                dominantBaseline="middle"
-              >
-                {Math.round(tick)}
-              </text>
-            </g>
-          );
-        })}
+        <YAxis
+          ticks={yTicks}
+          yScale={yScale}
+          formatTick={(tick, index) =>
+            formatYAxisTick(chart, tick, index === yTicks.length - 1)
+          }
+        />
 
         {chart.series.map((series, seriesIndex) => {
           const clusterX = MARGIN.left + seriesIndex * clusterWidth;
@@ -111,8 +95,7 @@ export default function BarCompare({ chart }: BarCompareProps) {
                 const x = quantize(
                   groupStart + pointIndex * (barWidth + BAR_GAP),
                 );
-                const y = quantize(MARGIN.top + PLOT_H - barHeight);
-                const isFirstBar = seriesIndex === 0 && pointIndex === 0;
+                const y = yPosition(yScale, point.value);
 
                 return (
                   <g key={point.label}>
@@ -129,11 +112,10 @@ export default function BarCompare({ chart }: BarCompareProps) {
                     <text
                       className={styles.valueLabel}
                       x={x + barWidth / 2}
-                      y={y - 6}
+                      y={y - VALUE_LABEL_OFFSET}
                       textAnchor="middle"
                     >
                       {point.value}
-                      {isFirstBar && chart.unit ? ` ${chart.unit}` : ""}
                     </text>
                   </g>
                 );
@@ -141,7 +123,7 @@ export default function BarCompare({ chart }: BarCompareProps) {
               <text
                 className={styles.axisLabel}
                 x={clusterX + clusterWidth / 2}
-                y={VIEW_H - MARGIN.bottom + 20}
+                y={VIEW_H - MARGIN.bottom + AXIS_LABEL_GAP}
                 textAnchor="middle"
               >
                 {series.name}

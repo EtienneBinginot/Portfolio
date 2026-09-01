@@ -41,10 +41,15 @@ describe("BarCompare", () => {
 
   it("annote chaque barre avec la valeur du point", () => {
     render(<BarCompare chart={chart} />);
-    expect(screen.getByText("30 s")).toBeInTheDocument();
+    expect(screen.getByText("30")).toBeInTheDocument();
     expect(screen.getByText("5")).toBeInTheDocument();
     expect(screen.getByText("20")).toBeInTheDocument();
     expect(screen.getByText("4")).toBeInTheDocument();
+  });
+
+  it("affiche l'unité une seule fois, sur la graduation la plus haute de l'axe Y", () => {
+    render(<BarCompare chart={chart} />);
+    expect(screen.getByText("30 s")).toBeInTheDocument();
   });
 
   it("affiche un label de groupe par série", () => {

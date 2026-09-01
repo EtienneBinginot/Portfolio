@@ -1,17 +1,23 @@
 import type { Chart as ChartData } from "@/lib/schema";
 import {
-  buildScale,
-  buildYTicks,
+  AXIS_LABEL_GAP,
+  chartA11yIds,
   describeChart,
-  labelStep,
+  domainMaxOf,
+  formatYAxisTick,
   MARGIN,
   PLOT_H,
   PLOT_W,
+  buildScale,
+  buildYTicks,
+  labelStep,
   quantize,
-  slugify,
+  shouldShowLabel,
   VIEW_H,
   VIEW_W,
+  yPosition,
 } from "./scale";
+import YAxis from "./YAxis";
 import styles from "./Chart.module.scss";
 
 const MARKER_SIZE = 8;
@@ -19,37 +25,30 @@ const MARKER_SIZE = 8;
 type TimeseriesProps = { chart: ChartData };
 
 export default function Timeseries({ chart }: TimeseriesProps) {
-  const titleId = `${slugify(chart.title)}-title`;
-  const descId = `${slugify(chart.title)}-desc`;
+  const { titleId, descId } = chartA11yIds(chart.title);
 
   // Une seule série rendue : le schéma autorise plusieurs séries pour
   // couvrir des besoins futurs, hors scope Phase 2 (overlay multi-séries).
   const points = chart.series[0]?.points ?? [];
-  const domainMax = Math.max(0, ...points.map((p) => p.value));
+  const domainMax = domainMaxOf(points);
   const yTicks = buildYTicks(chart.scale, domainMax);
   const yScale = buildScale(chart.scale, domainMax, PLOT_H);
   const step = labelStep(points.length);
 
-  const coords = points.map((point, index) => {
+  // Ligne "en escalier" : uniquement des segments horizontaux/verticaux,
+  // jamais de diagonale — écho au motif des coins en escalier de PixelBorder,
+  // et garantie de bords nets quel que soit le moteur de rendu. coords et
+  // pathParts sont construits en une seule passe sur points.
+  const coords: { x: number; y: number; label: string }[] = [];
+  const pathParts: string[] = [];
+  points.forEach((point, index) => {
     const x = quantize(
       MARGIN.left +
         (points.length > 1 ? (index / (points.length - 1)) * PLOT_W : 0),
     );
-    const y = quantize(MARGIN.top + PLOT_H - yScale(point.value));
-    return { x, y, point };
-  });
-
-  // Ligne "en escalier" : uniquement des segments horizontaux/verticaux,
-  // jamais de diagonale — écho au motif des coins en escalier de PixelBorder,
-  // et garantie de bords nets quel que soit le moteur de rendu.
-  const pathParts: string[] = [];
-  coords.forEach((coord, index) => {
-    if (index === 0) {
-      pathParts.push(`M ${coord.x} ${coord.y}`);
-    } else {
-      pathParts.push(`H ${coord.x}`);
-      pathParts.push(`V ${coord.y}`);
-    }
+    const y = yPosition(yScale, point.value);
+    coords.push({ x, y, label: point.label });
+    pathParts.push(index === 0 ? `M ${x} ${y}` : `H ${x} V ${y}`);
   });
   const pathD = pathParts.join(" ");
 
@@ -63,31 +62,13 @@ export default function Timeseries({ chart }: TimeseriesProps) {
       <title id={titleId}>{chart.title}</title>
       <desc id={descId}>{describeChart(chart)}</desc>
 
-      {yTicks.map((tick, index) => {
-        const y = quantize(MARGIN.top + PLOT_H - yScale(tick));
-        const isTopTick = index === yTicks.length - 1;
-        return (
-          <g key={tick}>
-            <line
-              className={styles.gridline}
-              x1={MARGIN.left}
-              y1={y}
-              x2={MARGIN.left + PLOT_W}
-              y2={y}
-            />
-            <text
-              className={styles.axisLabel}
-              x={MARGIN.left - 8}
-              y={y}
-              textAnchor="end"
-              dominantBaseline="middle"
-            >
-              {Math.round(tick)}
-              {isTopTick && chart.scale === "log" ? " (log)" : ""}
-            </text>
-          </g>
-        );
-      })}
+      <YAxis
+        ticks={yTicks}
+        yScale={yScale}
+        formatTick={(tick, index) =>
+          formatYAxisTick(chart, tick, index === yTicks.length - 1)
+        }
+      />
 
       {pathD && (
         <path
@@ -99,10 +80,10 @@ export default function Timeseries({ chart }: TimeseriesProps) {
         />
       )}
 
-      {coords.map(({ x, y, point }, index) => {
-        const showLabel = index % step === 0 || index === coords.length - 1;
+      {coords.map(({ x, y, label }, index) => {
+        const showLabel = shouldShowLabel(index, coords.length, step);
         return (
-          <g key={point.label}>
+          <g key={label}>
             <rect
               data-role="point"
               x={x - MARKER_SIZE / 2}
@@ -117,10 +98,10 @@ export default function Timeseries({ chart }: TimeseriesProps) {
               <text
                 className={styles.axisLabel}
                 x={x}
-                y={VIEW_H - MARGIN.bottom + 20}
+                y={VIEW_H - MARGIN.bottom + AXIS_LABEL_GAP}
                 textAnchor="middle"
               >
-                {point.label}
+                {label}
               </text>
             )}
           </g>

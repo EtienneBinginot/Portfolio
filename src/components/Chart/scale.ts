@@ -13,10 +13,25 @@ export function quantize(n: number, unit: number = PIXEL_UNIT): number {
 // de façon fluide par le composant (width="100%" height="auto"), sans JS.
 export const VIEW_W = 600;
 export const VIEW_H = 300;
-// top: 32 laisse la place à l'annotation de valeur au-dessus de la barre la
-// plus haute (celle qui atteint domainMax, donc le haut du plot) — sans
-// cette marge, son texte dépasse le viewBox et se fait rogner en haut.
-export const MARGIN = { top: 32, right: 16, bottom: 44, left: 44 };
+
+export const BAR_GAP = 4;
+// Écart entre le haut d'une barre et son annotation de valeur au-dessus.
+export const VALUE_LABEL_OFFSET = 8;
+// Hauteur de ligne du plus grand corps utilisé par une annotation de valeur
+// (.valueLabel passe à --fs-md, 20 unités, sous la media query mobile de
+// Chart.module.scss) — sert à dimensionner MARGIN.top ci-dessous pour que le
+// label du point le plus haut ne dépasse jamais le viewBox, à n'importe
+// quelle taille d'écran.
+const MAX_VALUE_LABEL_LINE_HEIGHT = 24;
+export const TICK_LABEL_GAP = 8; // entre l'axe Y et le texte de ses graduations
+export const AXIS_LABEL_GAP = 20; // entre le bas du plot et un label d'axe X
+
+export const MARGIN = {
+  top: VALUE_LABEL_OFFSET + MAX_VALUE_LABEL_LINE_HEIGHT,
+  right: 16,
+  bottom: 44,
+  left: 44,
+};
 export const PLOT_W = VIEW_W - MARGIN.left - MARGIN.right;
 export const PLOT_H = VIEW_H - MARGIN.top - MARGIN.bottom;
 
@@ -54,6 +69,63 @@ export function buildYTicks(
     return ticks;
   }
   return [0, domainMax / 4, domainMax / 2, (domainMax * 3) / 4, domainMax];
+}
+
+// Position Y (quantifiée) d'une valeur sur le plot, haut de plot vers le bas
+// — formule partagée par les graduations d'axe et les marques de données.
+export function yPosition(yScale: ScaleFn, value: number): number {
+  return quantize(MARGIN.top + PLOT_H - yScale(value));
+}
+
+// Identifiants déterministes liant <title>/<desc> au SVG via
+// aria-labelledby/aria-describedby, sans hook React (composants Server).
+export function chartA11yIds(title: string): {
+  titleId: string;
+  descId: string;
+} {
+  const slug = slugify(title);
+  return { titleId: `${slug}-title`, descId: `${slug}-desc` };
+}
+
+export function domainMaxOf(points: { value: number }[]): number {
+  return points.reduce((max, p) => (p.value > max ? p.value : max), 0);
+}
+
+// Largeur d'une barre quantifiée sur la grille, pour un nombre de barres
+// donné réparties sur une largeur disponible avec un espacement gap.
+export function computeBarWidth(
+  availableWidth: number,
+  count: number,
+  gap: number = BAR_GAP,
+): number {
+  return quantize(
+    (availableWidth - gap * Math.max(count - 1, 0)) / Math.max(count, 1),
+  );
+}
+
+// Un label sur deux (ou plus, selon step) est affiché, mais le dernier est
+// toujours forcé — évite le chevauchement sans jamais couper la série avant
+// son dernier point.
+export function shouldShowLabel(
+  index: number,
+  count: number,
+  step: number,
+): boolean {
+  return index % step === 0 || index === count - 1;
+}
+
+// Texte d'une graduation de l'axe Y : la graduation la plus haute porte
+// l'information de dimension du graphique (unité, ou échelle logarithmique)
+// pour éviter de la répéter sur chaque marque de donnée.
+export function formatYAxisTick(
+  chart: Pick<ChartData, "unit" | "scale">,
+  tick: number,
+  isTopTick: boolean,
+): string {
+  const rounded = Math.round(tick);
+  if (!isTopTick) return String(rounded);
+  if (chart.scale === "log") return `${rounded} (log)`;
+  return chart.unit ? `${rounded} ${chart.unit}` : String(rounded);
 }
 
 // Nombre de labels à sauter pour ne pas dépasser maxLabels affichés — évite
