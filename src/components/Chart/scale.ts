@@ -13,7 +13,10 @@ export function quantize(n: number, unit: number = PIXEL_UNIT): number {
 // de façon fluide par le composant (width="100%" height="auto"), sans JS.
 export const VIEW_W = 600;
 export const VIEW_H = 300;
-export const MARGIN = { top: 16, right: 16, bottom: 44, left: 44 };
+// top: 32 laisse la place à l'annotation de valeur au-dessus de la barre la
+// plus haute (celle qui atteint domainMax, donc le haut du plot) — sans
+// cette marge, son texte dépasse le viewBox et se fait rogner en haut.
+export const MARGIN = { top: 32, right: 16, bottom: 44, left: 44 };
 export const PLOT_W = VIEW_W - MARGIN.left - MARGIN.right;
 export const PLOT_H = VIEW_H - MARGIN.top - MARGIN.bottom;
 
