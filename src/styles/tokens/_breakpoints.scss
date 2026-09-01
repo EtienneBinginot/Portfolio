@@ -1,0 +1,7 @@
+// Points de rupture pour l'effondrement mobile. Peu nombreux, volontairement
+// génériques (pas de breakpoint par composant) pour garder une grille
+// cohérente sur tout le site.
+
+$bp-sm: 480px;
+$bp-md: 768px;
+$bp-lg: 1024px;

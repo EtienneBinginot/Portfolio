@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "name": "Etienne Binginot",
+    "role": "[placeholder] Développeur — sécurité applicative / outillage",
+    "lane": "[placeholder] sécurité applicative",
+    "tagline": "[placeholder] accroche à écrire en Phase 0 (Notion)",
+    "email": "etienne.binginot@gmail.com",
+    "github": "https://github.com/EtienneBinginot",
+    "linkedin": "https://www.linkedin.com/in/etienne-binginot"
+  },
+  "highlights": [
+    {
+      "value": "[placeholder]",
+      "label": "chiffre à confirmer en Phase 0",
+      "context": "en attente du contenu réel (Notion / TODO Phase 0)",
+      "href": "/projets/exemple-projet#resultat"
+    }
+  ],
+  "projects": [
+    {
+      "id": "exemple-projet",
+      "title": "[placeholder] Exemple de fiche projet",
+      "summary": "Contenu de démonstration pour valider le socle (Phase 1) — à remplacer par le contenu réel de la Phase 0.",
+      "problem": "[placeholder] problème et contrainte réelle.",
+      "decisions": "[placeholder] arbitrages, y compris ceux écartés et pourquoi.",
+      "stack": ["Next.js", "TypeScript", "SCSS"],
+      "repo": "https://github.com/EtienneBinginot/portfolio",
+      "featured": true,
+      "metrics": [
+        {
+          "label": "exemple de métrique",
+          "value": "0",
+          "unit": "placeholder",
+          "method": "[placeholder] méthode de mesure à documenter avant publication",
+          "measuredAt": "2026-09-01"
+        }
+      ],
+      "chart": {
+        "type": "bar-compare",
+        "title": "[placeholder] avant / après",
+        "unit": "unité",
+        "caption": "Source : placeholder — date de mesure : 2026-09-01",
+        "source": "placeholder",
+        "series": [
+          {
+            "name": "exemple",
+            "points": [
+              { "label": "avant", "value": 30 },
+              { "label": "après", "value": 5 }
+            ]
+          }
+        ]
+      },
+      "retrospective": "[placeholder] ce qui serait refait autrement."
+    }
+  ],
+  "cases": [
+    {
+      "id": "exemple-intervention",
+      "title": "[placeholder] Exemple de fiche intervention",
+      "period": "2026",
+      "context": "[placeholder] contexte anonymisé.",
+      "constraints": "[placeholder] contraintes réelles.",
+      "scope": "infrastructure",
+      "myRole": "[placeholder] rôle exact.",
+      "decisions": "[placeholder] décisions prises.",
+      "metrics": [
+        {
+          "label": "exemple de métrique",
+          "value": "0",
+          "unit": "placeholder",
+          "method": "[placeholder] méthode de mesure",
+          "measuredAt": "2026-09-01"
+        }
+      ],
+      "retrospective": "[placeholder]"
+    }
+  ],
+  "skills": [
+    {
+      "name": "TypeScript",
+      "category": "langage",
+      "evidence": "exemple-projet"
+    },
+    {
+      "name": "Diagnostic incident",
+      "category": "infrastructure",
+      "evidence": "exemple-intervention"
+    }
+  ],
+  "chantiers": [
+    {
+      "id": "exemple-chantier",
+      "title": "[placeholder] Ancien projet d'entraînement",
+      "period": "2024",
+      "summary": "[placeholder] ce que ça visait à apprendre.",
+      "repo": "https://github.com/EtienneBinginot/portfolio"
+    }
+  ],
+  "about": {
+    "bio": "[placeholder] parcours à rédiger en Phase 0.",
+    "formation": ["[placeholder]"],
+    "interests": ["[placeholder]"]
+  }
+}

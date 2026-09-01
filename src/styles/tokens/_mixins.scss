@@ -1,0 +1,60 @@
+@use "sass:list";
+@use "colors" as c;
+@use "borders" as b;
+
+// Coins en escalier via clip-path, à la place de border-radius. $size
+// contrôle la taille de la marche (défaut : $stair-size).
+@mixin staircase-corners($size: b.$stair-size) {
+  clip-path: polygon(
+    0 $size,
+    $size $size,
+    $size 0,
+    calc(100% - #{$size}) 0,
+    calc(100% - #{$size}) $size,
+    100% $size,
+    100% calc(100% - #{$size}),
+    calc(100% - #{$size}) calc(100% - #{$size}),
+    calc(100% - #{$size}) 100%,
+    $size 100%,
+    $size calc(100% - #{$size}),
+    0 calc(100% - #{$size})
+  );
+}
+
+// Bordure pleine en escalier : pose le fond $fill, puis simule un contour
+// $line-color en dupliquant la forme sur un pseudo-élément (voir usage dans
+// PixelBorder.module.scss). Ce mixin ne pose que le clip-path + la couleur de
+// fond ; l'appelant gère le pseudo-élément de contour.
+@mixin staircase-border($fill: c.$surface, $size: b.$stair-size) {
+  @include staircase-corners($size);
+  background-color: $fill;
+}
+
+// Relief à deux couleurs plates (jamais de box-shadow flou) : un filet clair
+// en haut/gauche, un filet sombre en bas/droite, façon bevel pixel art.
+// $pressed inverse le sens du relief (état actif/pressé).
+@mixin two-tone-relief(
+  $light: c.$accent-cyan,
+  $dark: c.$ink,
+  $size: b.$relief-size,
+  $pressed: false
+) {
+  $top-color: if(sass($pressed): $dark; else: $light);
+  $bottom-color: if(sass($pressed): $light; else: $dark);
+
+  box-shadow:
+    inset 0 $size 0 0 $top-color,
+    inset (-$size) 0 0 0 $bottom-color,
+    inset 0 (-$size) 0 0 $bottom-color,
+    inset $size 0 0 0 $top-color;
+}
+
+// Anneau de focus clavier cohérent avec la palette (au lieu du bleu par
+// défaut du navigateur, qui jure avec forêt/lagon). À poser sur tout élément
+// interactif — bouton, lien de nav, lien de pied de page.
+@mixin focus-ring {
+  &:focus-visible {
+    outline: var(--border-width) solid var(--accent-cyan);
+    outline-offset: var(--space-1);
+  }
+}

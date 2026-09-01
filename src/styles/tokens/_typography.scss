@@ -1,0 +1,23 @@
+// Trois familles, trois rôles stricts — ne jamais les mélanger :
+//   --font-pixel : titres, chiffres d'accroche, UI, navigation
+//   --font-read  : prose, write-ups (lecture longue)
+//   --font-mono  : chiffres de données (tabular-nums pour aligner les colonnes)
+// Les polices elles-mêmes sont chargées via next/font/google dans
+// src/app/layout.tsx, qui pose les variables CSS correspondantes sur <html>.
+// Ici on ne fixe que les tailles/poids/line-height, pas les familles.
+
+$fs-xs: 0.75rem; // 12px — légendes, méta
+$fs-sm: 0.875rem; // 14px — UI secondaire
+$fs-base: 1rem; // 16px — corps de texte
+$fs-md: 1.25rem; // 20px — intertitres
+$fs-lg: 1.75rem; // 28px — titres de section
+$fs-xl: 2.5rem; // 40px — titre de page
+$fs-2xl: 3.5rem; // 56px — accroche d'accueil
+
+$lh-tight: 1.15; // titres pixel
+$lh-normal: 1.5; // UI générale
+$lh-relaxed: 1.75; // prose longue
+
+$fw-regular: 400;
+$fw-medium: 500;
+$fw-bold: 700;

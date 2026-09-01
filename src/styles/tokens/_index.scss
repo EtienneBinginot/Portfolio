@@ -1,0 +1,8 @@
+// Point d'entrée unique des jetons : @use "@/styles/tokens" as tokens; dans
+// n'importe quel *.module.scss pour accéder aux variables et mixins.
+@forward "colors";
+@forward "spacing";
+@forward "typography";
+@forward "borders";
+@forward "breakpoints";
+@forward "mixins";
