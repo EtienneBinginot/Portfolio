@@ -1,0 +1,23 @@
+// Grille 4/8px — toutes les tailles d'espacement du site sont des multiples
+// de 4px, la plupart alignées sur 8px pour rester cohérentes avec la
+// discipline pixel art (pas de valeur "à l'oeil").
+
+$space-unit: 4px;
+
+$space-1: $space-unit * 1; //  4px
+$space-2: $space-unit * 2; //  8px
+$space-3: $space-unit * 3; // 12px
+$space-4: $space-unit * 4; // 16px
+$space-5: $space-unit * 5; // 20px
+$space-6: $space-unit * 6; // 24px
+$space-8: $space-unit * 8; // 32px
+$space-10: $space-unit * 10; // 40px
+$space-12: $space-unit * 12; // 48px
+$space-16: $space-unit * 16; // 64px
+$space-24: $space-unit * 24; // 96px
+
+// Largeur de mesure pour la prose (write-ups) : ~70 caractères.
+$prose-measure: 70ch;
+
+// Largeur max de grille pour les pages denses en données.
+$content-max-width: 1200px;

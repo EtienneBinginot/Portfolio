@@ -1,0 +1,133 @@
+@use "tokens" as t;
+
+// -----------------------------------------------------------------------
+// Jetons -> variables CSS globales. C'est la SEULE source de vérité runtime :
+// les composants consomment var(--...), jamais les variables SCSS
+// directement, pour rester inspectables/overridables au besoin (devtools,
+// thème alternatif futur, etc).
+// -----------------------------------------------------------------------
+:root {
+  // Couleurs — palette forêt/lagon
+  --bg: #{t.$bg};
+  --surface: #{t.$surface};
+  --ink: #{t.$ink};
+  --text: #{t.$text};
+  --text-muted: #{t.$text-muted};
+  --accent-green: #{t.$accent-green};
+  --accent-blue: #{t.$accent-blue};
+  --accent-cyan: #{t.$accent-cyan};
+
+  // Espacements — grille 4/8px
+  --space-1: #{t.$space-1};
+  --space-2: #{t.$space-2};
+  --space-3: #{t.$space-3};
+  --space-4: #{t.$space-4};
+  --space-5: #{t.$space-5};
+  --space-6: #{t.$space-6};
+  --space-8: #{t.$space-8};
+  --space-10: #{t.$space-10};
+  --space-12: #{t.$space-12};
+  --space-16: #{t.$space-16};
+  --space-24: #{t.$space-24};
+  --prose-measure: #{t.$prose-measure};
+  --content-max-width: #{t.$content-max-width};
+
+  // Typographie — tailles/poids/interlignage (familles posées par next/font
+  // dans layout.tsx : --font-pixel, --font-read, --font-mono)
+  --fs-xs: #{t.$fs-xs};
+  --fs-sm: #{t.$fs-sm};
+  --fs-base: #{t.$fs-base};
+  --fs-md: #{t.$fs-md};
+  --fs-lg: #{t.$fs-lg};
+  --fs-xl: #{t.$fs-xl};
+  --fs-2xl: #{t.$fs-2xl};
+  --lh-tight: #{t.$lh-tight};
+  --lh-normal: #{t.$lh-normal};
+  --lh-relaxed: #{t.$lh-relaxed};
+  --fw-regular: #{t.$fw-regular};
+  --fw-medium: #{t.$fw-medium};
+  --fw-bold: #{t.$fw-bold};
+
+  // Bordures — discipline pixel art (pas de border-radius, pas de box-shadow flou)
+  --border-width: #{t.$border-width};
+  --border-width-thick: #{t.$border-width-thick};
+  --stair-size: #{t.$stair-size};
+  --stair-size-lg: #{t.$stair-size-lg};
+  --relief-size: #{t.$relief-size};
+}
+
+// -----------------------------------------------------------------------
+// Reset minimal
+// -----------------------------------------------------------------------
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  // Filet de sécurité anti-scroll-horizontal, posé uniquement sur <html> :
+  // le mettre aussi sur <body> ferait de body son propre conteneur de
+  // scroll (overflow-x défini force overflow-y à 'auto' par la spec CSS),
+  // ce qui casse le scroll natif de la page et le défilement vers les
+  // ancres (#resultat) dont dépendent les liens profonds du panneau de
+  // chiffres.
+  max-width: 100vw;
+  overflow-x: hidden;
+  // image-rendering: pixelated s'applique au cas par cas (voir composants
+  // pixel), pas globalement : la prose et les icônes ne doivent pas hériter
+  // de ce rendu.
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-read), system-ui, sans-serif;
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--accent-blue);
+}
+
+// Respect du confort de lecture demandé sur les animations (Phase 8, posé
+// dès le socle pour ne pas l'oublier plus tard).
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// -----------------------------------------------------------------------
+// Utilitaires typographiques par rôle de police
+// -----------------------------------------------------------------------
+.font-pixel {
+  font-family: var(--font-pixel), monospace;
+  line-height: var(--lh-tight);
+}
+
+.font-mono {
+  font-family: var(--font-mono), monospace;
+  font-variant-numeric: tabular-nums;
+}

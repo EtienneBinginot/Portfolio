@@ -1,0 +1,19 @@
+@use "@/styles/tokens" as t;
+
+// Trame "cadre en escalier" : un cadre extérieur clippé (couleur de contour)
+// contient un panneau intérieur clippé (couleur de fond), décalé par le
+// padding du cadre. Pas de border-radius, pas de box-shadow flou — le
+// contour est un vrai second plan pixel, pas un effet.
+.frame {
+  display: block;
+  padding: var(--pixel-border-width, var(--border-width));
+  background: var(--pixel-border-color, var(--ink));
+  @include t.staircase-corners();
+}
+
+.panel {
+  height: 100%;
+  padding: var(--space-4);
+  background: var(--pixel-fill, var(--surface));
+  @include t.staircase-corners();
+}

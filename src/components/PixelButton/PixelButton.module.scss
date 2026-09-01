@@ -1,0 +1,59 @@
+@use "@/styles/tokens" as t;
+
+// Bouton pixel art : relief simulé par deux couleurs plates sur les bords
+// (mixin two-tone-relief), jamais de box-shadow flou. Hover = permutation
+// entre deux tons plats du même ramp, jamais un dithering (règle posée dans
+// tokens/_colors.scss : le dithering est interdit sur l'interactif).
+.button {
+  appearance: none;
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background: var(--pixel-btn-bg, var(--accent-blue));
+  color: var(--pixel-btn-fg, var(--ink));
+  font-family: var(--font-pixel), monospace;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-tight);
+  @include t.staircase-corners(t.$stair-size);
+  @include t.two-tone-relief(
+    $light: t.$accent-cyan,
+    $dark: t.$ink,
+    $size: t.$relief-size
+  );
+
+  &:hover {
+    background: var(--pixel-btn-bg-hover, var(--accent-cyan));
+  }
+
+  &:active {
+    @include t.two-tone-relief(
+      $light: t.$accent-cyan,
+      $dark: t.$ink,
+      $size: t.$relief-size,
+      $pressed: true
+    );
+  }
+
+  &:focus-visible {
+    outline: var(--border-width) solid var(--accent-cyan);
+    outline-offset: var(--space-1);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.secondary {
+  background: var(--pixel-btn-bg, var(--surface));
+  color: var(--pixel-btn-fg, var(--text));
+
+  &:hover {
+    background: var(--pixel-btn-bg-hover, var(--ink));
+  }
+}
