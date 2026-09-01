@@ -26,7 +26,10 @@ export default function PixelBorder({
   } as CSSProperties;
 
   return (
-    <div className={[styles.frame, className].filter(Boolean).join(" ")} style={style}>
+    <div
+      className={[styles.frame, className].filter(Boolean).join(" ")}
+      style={style}
+    >
       <div className={styles.panel}>{children}</div>
     </div>
   );

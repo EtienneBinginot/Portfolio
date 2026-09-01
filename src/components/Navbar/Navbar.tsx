@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./Navbar.module.scss";
 
-const NAV_ITEMS = [
+export const NAV_ITEMS = [
   { href: "/", label: "Accueil" },
   { href: "/projets", label: "Projets" },
   { href: "/interventions", label: "Interventions" },
@@ -23,7 +23,9 @@ export default function Navbar() {
         <ul className={styles.links}>
           {NAV_ITEMS.map((item) => {
             const isActive =
-              item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+              item.href === "/"
+                ? pathname === "/"
+                : pathname.startsWith(item.href);
             return (
               <li key={item.href}>
                 <Link

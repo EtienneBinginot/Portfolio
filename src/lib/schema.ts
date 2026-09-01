@@ -16,8 +16,18 @@ export const MetricSchema = z.object({
   label: z.string().min(1),
   value: z.string().min(1),
   unit: z.string().optional(),
-  method: z.string().min(1, "method est obligatoire : comment cette mesure a-t-elle été prise ?"),
-  measuredAt: z.string().min(1, "measuredAt est obligatoire : quand cette mesure a-t-elle été prise ?"),
+  method: z
+    .string()
+    .min(
+      1,
+      "method est obligatoire : comment cette mesure a-t-elle été prise ?",
+    ),
+  measuredAt: z
+    .string()
+    .min(
+      1,
+      "measuredAt est obligatoire : quand cette mesure a-t-elle été prise ?",
+    ),
 });
 
 export const ChartPointSchema = z.object({
@@ -91,7 +101,9 @@ export const CaseSchema = z.object({
 export const SkillSchema = z.object({
   name: z.string().min(1),
   category: z.string().min(1),
-  evidence: z.string().min(1, "evidence obligatoire : id d'un projet ou d'un cas"),
+  evidence: z
+    .string()
+    .min(1, "evidence obligatoire : id d'un projet ou d'un cas"),
 });
 
 export const ChantierSchema = z.object({

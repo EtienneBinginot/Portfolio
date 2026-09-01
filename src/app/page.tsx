@@ -96,7 +96,9 @@ export default function Home() {
           <span className={styles.typePixel}>
             Silkscreen — titres, UI, navigation
           </span>
-          <span className={styles.typeMono}>1 234,56 — IBM Plex Mono, tabular-nums</span>
+          <span className={styles.typeMono}>
+            1 234,56 — IBM Plex Mono, tabular-nums
+          </span>
           <p className={styles.typeRead}>
             Inter — police de lecture pour la prose et les write-ups, mesure
             limitée à environ 70 caractères pour rester confortable sur les

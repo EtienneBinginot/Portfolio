@@ -22,6 +22,8 @@
   color: var(--text);
   text-decoration: none;
   letter-spacing: 0.02em;
+
+  @include t.focus-ring();
 }
 
 .links {
@@ -48,6 +50,8 @@
   &:hover {
     color: var(--text);
   }
+
+  @include t.focus-ring();
 }
 
 // Indicateur de page active : trait plat en dur, pas de soulignement animé

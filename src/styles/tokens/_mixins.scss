@@ -48,3 +48,13 @@
     inset 0 (-$size) 0 0 $bottom-color,
     inset $size 0 0 0 $top-color;
 }
+
+// Anneau de focus clavier cohérent avec la palette (au lieu du bleu par
+// défaut du navigateur, qui jure avec forêt/lagon). À poser sur tout élément
+// interactif — bouton, lien de nav, lien de pied de page.
+@mixin focus-ring {
+  &:focus-visible {
+    outline: var(--border-width) solid var(--accent-cyan);
+    outline-offset: var(--space-1);
+  }
+}

@@ -38,10 +38,7 @@
     );
   }
 
-  &:focus-visible {
-    outline: var(--border-width) solid var(--accent-cyan);
-    outline-offset: var(--space-1);
-  }
+  @include t.focus-ring();
 
   &:disabled {
     cursor: not-allowed;
