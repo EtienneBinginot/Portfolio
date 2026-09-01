@@ -28,7 +28,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Étienne Binginot — Portfolio",
+  title: "Etienne Binginot — Portfolio",
   description: "Site vitrine personnel orienté preuve mesurée.",
 };
 
