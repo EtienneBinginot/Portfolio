@@ -1,0 +1,128 @@
+@use "@/styles/tokens" as t;
+
+.figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.title {
+  font-family: var(--font-pixel), monospace;
+  font-size: var(--fs-md);
+  color: var(--text);
+  margin: 0;
+}
+
+.logBadge {
+  font-family: var(--font-mono), monospace;
+  font-size: var(--fs-xs);
+  color: var(--accent-cyan);
+  border: var(--border-width) solid var(--accent-cyan);
+  padding: 0 var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.caption {
+  font-family: var(--font-read), sans-serif;
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  max-width: var(--prose-measure);
+}
+
+.source {
+  color: var(--text-muted);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin: 0 0 var(--space-3);
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.swatch {
+  display: inline-block;
+  width: var(--space-3);
+  height: var(--space-3);
+  background: var(--swatch-color);
+  image-rendering: pixelated;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+// --- Classes appliquées aux éléments SVG (texte/traits) par les variantes ---
+
+.axisLabel {
+  font-family: var(--font-mono), monospace;
+  font-size: var(--fs-xs);
+  fill: var(--text-muted);
+}
+
+.valueLabel {
+  font-family: var(--font-mono), monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-sm);
+  fill: var(--text);
+}
+
+.legendLabel {
+  font-family: var(--font-read), sans-serif;
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+.gridline {
+  stroke: var(--text-muted);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.barOutline {
+  stroke: var(--ink);
+  stroke-width: var(--border-width);
+  shape-rendering: crispEdges;
+}
+
+// Lisibilité mobile : on remonte d'un cran l'échelle typo existante et on
+// épaissit les traits, en réutilisant les tokens déjà définis. À l'intérieur
+// d'un <svg> à viewBox, font-size se résout en unités utilisateur du
+// viewBox — cette media query a donc un effet réel sur la lisibilité à
+// l'écran, pas seulement sur la valeur numérique du token.
+@media (max-width: t.$bp-sm) {
+  .axisLabel {
+    font-size: var(--fs-sm);
+  }
+
+  .valueLabel {
+    font-size: var(--fs-md);
+  }
+
+  .legendLabel {
+    font-size: var(--fs-sm);
+  }
+
+  .barOutline {
+    stroke-width: var(--border-width-thick);
+  }
+}

@@ -1,7 +1,7 @@
 // @vitest-environment node
 // Tests purs (validation Zod) : pas besoin du DOM jsdom.
 import { describe, expect, it } from "vitest";
-import { DataSchema, MetricSchema } from "./schema";
+import { ChartSchema, DataSchema, MetricSchema } from "./schema";
 import type { Data } from "./schema";
 
 const validMetric = {
@@ -31,6 +31,49 @@ describe("MetricSchema", () => {
     expect(MetricSchema.safeParse({ ...validMetric, method: "" }).success).toBe(
       false,
     );
+  });
+});
+
+const validChart = {
+  type: "bar-compare" as const,
+  title: "avant / après",
+  unit: "s",
+  caption: "Source : New Relic — date de mesure : 2026-08-01",
+  source: "New Relic",
+  series: [{ name: "latence", points: [{ label: "avant", value: 30 }] }],
+};
+
+describe("ChartSchema", () => {
+  it("accepte un chart sans scale et applique le défaut linear", () => {
+    const result = ChartSchema.safeParse(validChart);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.scale).toBe("linear");
+    }
+  });
+
+  it("accepte scale: log avec des valeurs toutes positives", () => {
+    const result = ChartSchema.safeParse({ ...validChart, scale: "log" });
+    expect(result.success).toBe(true);
+  });
+
+  it("rejette scale: log avec un point <= 0", () => {
+    const chart = {
+      ...validChart,
+      scale: "log" as const,
+      series: [{ name: "latence", points: [{ label: "avant", value: 0 }] }],
+    };
+    const result = ChartSchema.safeParse(chart);
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.error.issues[0].path).toEqual([
+        "series",
+        0,
+        "points",
+        0,
+        "value",
+      ]);
+    }
   });
 });
 
