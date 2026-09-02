@@ -1,0 +1,54 @@
+@use "@/styles/tokens" as t;
+
+// Tuile de chiffre cliquable : lien profond vers l'ancre exacte de sa fiche
+// justificative (projet ou intervention). Contrairement à MetricBlock (qui
+// affiche method/measuredAt sur une fiche), la tuile d'accueil mène par le
+// contexte et pointe vers la preuve, elle ne la remplace pas.
+.link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+  // Item de grille : sans ça, la largeur minimale par défaut d'un enfant de
+  // grille est celle de son contenu (min-width: auto), ce qui peut forcer la
+  // colonne — et toute la grille — à déborder au lieu de laisser le texte
+  // passer à la ligne (overflow-wrap sur .value).
+  min-width: 0;
+
+  @include t.focus-ring();
+
+  // Le fond du panneau intérieur (--pixel-fill, lu par PixelBorder.panel)
+  // est une custom property héritée : la fixer ici suffit à la faire
+  // remonter jusqu'au panneau, sans cibler sa classe scopée. Changement net,
+  // pas de transition animée (règle anti-flou/anti-animation de l'accroche).
+  &:hover .frame {
+    --pixel-fill: var(--accent-cyan);
+  }
+}
+
+.frame {
+  height: 100%;
+}
+
+.value {
+  font-family: var(--font-mono), monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-xl);
+  color: var(--accent-green);
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+.label {
+  font-family: var(--font-read), sans-serif;
+  font-size: var(--fs-sm);
+  color: var(--text);
+  margin: var(--space-2) 0 0;
+}
+
+.context {
+  font-family: var(--font-read), sans-serif;
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  margin: var(--space-2) 0 0;
+}
