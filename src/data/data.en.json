@@ -14,6 +14,30 @@
       "label": "figure to confirm in Phase 0",
       "context": "pending real content (Notion / Phase 0 TODO)",
       "href": "/projets/exemple-projet#resultat"
+    },
+    {
+      "value": "[placeholder]",
+      "label": "figure to confirm in Phase 0",
+      "context": "pending real content (Notion / Phase 0 TODO)",
+      "href": "/projets/exemple-projet-2#resultat"
+    },
+    {
+      "value": "[placeholder]",
+      "label": "figure to confirm in Phase 0",
+      "context": "pending real content (Notion / Phase 0 TODO)",
+      "href": "/projets/exemple-projet-3#resultat"
+    },
+    {
+      "value": "[placeholder]",
+      "label": "figure to confirm in Phase 0",
+      "context": "pending real content (Notion / Phase 0 TODO)",
+      "href": "/interventions/exemple-intervention#resultat"
+    },
+    {
+      "value": "[placeholder]",
+      "label": "figure to confirm in Phase 0",
+      "context": "pending real content (Notion / Phase 0 TODO)",
+      "href": "/interventions/exemple-intervention-2#resultat"
     }
   ],
   "projects": [
@@ -52,6 +76,46 @@
         ]
       },
       "retrospective": "[placeholder] what would be done differently."
+    },
+    {
+      "id": "exemple-projet-2",
+      "title": "[placeholder] Second example project entry",
+      "summary": "[placeholder] measured result to lead with — demo content pending Phase 0.",
+      "problem": "[placeholder] problem and real-world constraint.",
+      "decisions": "[placeholder] trade-offs made, including the ones ruled out and why.",
+      "stack": ["Next.js", "TypeScript"],
+      "repo": "https://github.com/EtienneBinginot/portfolio",
+      "featured": true,
+      "metrics": [
+        {
+          "label": "example metric",
+          "value": "0",
+          "unit": "placeholder",
+          "method": "[placeholder] measurement method to document before publishing",
+          "measuredAt": "2026-09-01"
+        }
+      ],
+      "retrospective": "[placeholder] what would be done differently."
+    },
+    {
+      "id": "exemple-projet-3",
+      "title": "[placeholder] Third example project entry",
+      "summary": "[placeholder] measured result to lead with — demo content pending Phase 0.",
+      "problem": "[placeholder] problem and real-world constraint.",
+      "decisions": "[placeholder] trade-offs made, including the ones ruled out and why.",
+      "stack": ["TypeScript", "Zod"],
+      "repo": "https://github.com/EtienneBinginot/portfolio",
+      "featured": true,
+      "metrics": [
+        {
+          "label": "example metric",
+          "value": "0",
+          "unit": "placeholder",
+          "method": "[placeholder] measurement method to document before publishing",
+          "measuredAt": "2026-09-01"
+        }
+      ],
+      "retrospective": "[placeholder] what would be done differently."
     }
   ],
   "cases": [
@@ -64,6 +128,7 @@
       "scope": "infrastructure",
       "myRole": "[placeholder] exact role.",
       "decisions": "[placeholder] decisions made.",
+      "featured": true,
       "metrics": [
         {
           "label": "example metric",
@@ -93,6 +158,27 @@
           }
         ]
       },
+      "retrospective": "[placeholder]"
+    },
+    {
+      "id": "exemple-intervention-2",
+      "title": "[placeholder] Second example case study entry",
+      "period": "2026",
+      "context": "[placeholder] anonymized context.",
+      "constraints": "[placeholder] real constraints.",
+      "scope": "mission",
+      "myRole": "[placeholder] exact role.",
+      "decisions": "[placeholder] decisions made.",
+      "featured": true,
+      "metrics": [
+        {
+          "label": "example metric",
+          "value": "0",
+          "unit": "placeholder",
+          "method": "[placeholder] measurement method",
+          "measuredAt": "2026-09-01"
+        }
+      ],
       "retrospective": "[placeholder]"
     }
   ],

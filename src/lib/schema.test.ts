@@ -118,6 +118,7 @@ function buildValidData(): Data {
         scope: "infrastructure",
         myRole: "rôle",
         decisions: "décisions",
+        featured: true,
         metrics: [validMetric],
       },
     ],

@@ -14,6 +14,30 @@
       "label": "chiffre à confirmer en Phase 0",
       "context": "en attente du contenu réel (Notion / TODO Phase 0)",
       "href": "/projets/exemple-projet#resultat"
+    },
+    {
+      "value": "[placeholder]",
+      "label": "chiffre à confirmer en Phase 0",
+      "context": "en attente du contenu réel (Notion / TODO Phase 0)",
+      "href": "/projets/exemple-projet-2#resultat"
+    },
+    {
+      "value": "[placeholder]",
+      "label": "chiffre à confirmer en Phase 0",
+      "context": "en attente du contenu réel (Notion / TODO Phase 0)",
+      "href": "/projets/exemple-projet-3#resultat"
+    },
+    {
+      "value": "[placeholder]",
+      "label": "chiffre à confirmer en Phase 0",
+      "context": "en attente du contenu réel (Notion / TODO Phase 0)",
+      "href": "/interventions/exemple-intervention#resultat"
+    },
+    {
+      "value": "[placeholder]",
+      "label": "chiffre à confirmer en Phase 0",
+      "context": "en attente du contenu réel (Notion / TODO Phase 0)",
+      "href": "/interventions/exemple-intervention-2#resultat"
     }
   ],
   "projects": [
@@ -52,6 +76,46 @@
         ]
       },
       "retrospective": "[placeholder] ce qui serait refait autrement."
+    },
+    {
+      "id": "exemple-projet-2",
+      "title": "[placeholder] Deuxième exemple de fiche projet",
+      "summary": "[placeholder] résultat mesuré à mettre en avant — contenu de démonstration en attente de la Phase 0.",
+      "problem": "[placeholder] problème et contrainte réelle.",
+      "decisions": "[placeholder] arbitrages, y compris ceux écartés et pourquoi.",
+      "stack": ["Next.js", "TypeScript"],
+      "repo": "https://github.com/EtienneBinginot/portfolio",
+      "featured": true,
+      "metrics": [
+        {
+          "label": "exemple de métrique",
+          "value": "0",
+          "unit": "placeholder",
+          "method": "[placeholder] méthode de mesure à documenter avant publication",
+          "measuredAt": "2026-09-01"
+        }
+      ],
+      "retrospective": "[placeholder] ce qui serait refait autrement."
+    },
+    {
+      "id": "exemple-projet-3",
+      "title": "[placeholder] Troisième exemple de fiche projet",
+      "summary": "[placeholder] résultat mesuré à mettre en avant — contenu de démonstration en attente de la Phase 0.",
+      "problem": "[placeholder] problème et contrainte réelle.",
+      "decisions": "[placeholder] arbitrages, y compris ceux écartés et pourquoi.",
+      "stack": ["TypeScript", "Zod"],
+      "repo": "https://github.com/EtienneBinginot/portfolio",
+      "featured": true,
+      "metrics": [
+        {
+          "label": "exemple de métrique",
+          "value": "0",
+          "unit": "placeholder",
+          "method": "[placeholder] méthode de mesure à documenter avant publication",
+          "measuredAt": "2026-09-01"
+        }
+      ],
+      "retrospective": "[placeholder] ce qui serait refait autrement."
     }
   ],
   "cases": [
@@ -64,6 +128,7 @@
       "scope": "infrastructure",
       "myRole": "[placeholder] rôle exact.",
       "decisions": "[placeholder] décisions prises.",
+      "featured": true,
       "metrics": [
         {
           "label": "exemple de métrique",
@@ -93,6 +158,27 @@
           }
         ]
       },
+      "retrospective": "[placeholder]"
+    },
+    {
+      "id": "exemple-intervention-2",
+      "title": "[placeholder] Deuxième exemple de fiche intervention",
+      "period": "2026",
+      "context": "[placeholder] contexte anonymisé.",
+      "constraints": "[placeholder] contraintes réelles.",
+      "scope": "mission",
+      "myRole": "[placeholder] rôle exact.",
+      "decisions": "[placeholder] décisions prises.",
+      "featured": true,
+      "metrics": [
+        {
+          "label": "exemple de métrique",
+          "value": "0",
+          "unit": "placeholder",
+          "method": "[placeholder] méthode de mesure",
+          "measuredAt": "2026-09-01"
+        }
+      ],
       "retrospective": "[placeholder]"
     }
   ],

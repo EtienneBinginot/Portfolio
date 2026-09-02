@@ -1,0 +1,72 @@
+@use "@/styles/tokens" as t;
+
+.link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+  // Voir HighlightTile.module.scss : évite qu'un enfant de grille impose sa
+  // largeur de contenu minimale à toute la grille.
+  min-width: 0;
+
+  @include t.focus-ring();
+
+  &:hover .frame {
+    --pixel-fill: var(--accent-cyan);
+  }
+}
+
+.frame {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.badge {
+  align-self: flex-start;
+  font-family: var(--font-pixel), monospace;
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  background: var(--accent-blue);
+  border: var(--border-width) solid var(--ink);
+  padding: var(--space-1) var(--space-2);
+}
+
+.result {
+  margin: 0;
+  font-family: var(--font-mono), monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.resultValue {
+  font-size: var(--fs-lg);
+  color: var(--accent-green);
+}
+
+.resultUnit {
+  font-size: var(--fs-md);
+  color: var(--accent-green);
+}
+
+.resultLabel {
+  font-family: var(--font-read), sans-serif;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.title {
+  font-family: var(--font-pixel), monospace;
+  font-size: var(--fs-md);
+  color: var(--text);
+  margin: 0;
+}
+
+.context {
+  font-family: var(--font-read), sans-serif;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  margin: 0;
+}

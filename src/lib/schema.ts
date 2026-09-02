@@ -113,6 +113,7 @@ export const CaseSchema = z.object({
   scope: CaseScopeSchema,
   myRole: z.string(),
   decisions: z.string(),
+  featured: z.boolean().default(false),
   metrics: z.array(MetricSchema),
   chart: ChartSchema.optional(),
   retrospective: z.string().optional(),
@@ -182,6 +183,7 @@ export const DataSchema = z
 export type Data = z.infer<typeof DataSchema>;
 export type Metric = z.infer<typeof MetricSchema>;
 export type Chart = z.infer<typeof ChartSchema>;
+export type Highlight = z.infer<typeof HighlightSchema>;
 export type Project = z.infer<typeof ProjectSchema>;
 export type Case = z.infer<typeof CaseSchema>;
 export type Skill = z.infer<typeof SkillSchema>;

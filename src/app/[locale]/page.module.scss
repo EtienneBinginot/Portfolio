@@ -37,8 +37,11 @@
 
 .tagline {
   font-family: var(--font-read), sans-serif;
-  font-size: var(--fs-md);
-  color: var(--text-muted);
+  // Fluide entre fs-md (mobile) et fs-lg (desktop) : l'accroche est la
+  // première chose lue, elle doit rester confortable sans jamais déborder.
+  font-size: clamp(var(--fs-md), 3vw + 1rem, var(--fs-lg));
+  line-height: var(--lh-relaxed);
+  color: var(--text);
   max-width: var(--prose-measure);
   margin: 0;
 }
@@ -56,94 +59,54 @@
   color: var(--text);
 }
 
-.sectionNote {
-  font-family: var(--font-read), sans-serif;
-  font-size: var(--fs-sm);
-  color: var(--text-muted);
-  margin: 0;
-  max-width: var(--prose-measure);
-}
-
-// --- Aperçu métrique -----------------------------------------------------
-
-.metricGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+// --- Panneau de chiffres agrégés ------------------------------------------
+// Mêmes éléments de DOM à toutes les largeurs, 4 paliers : 5 tuiles côte à
+// côte si la place le permet, puis 3+2, puis 2+2+1, puis une colonne.
+// Flexbox plutôt que Grid : une ligne incomplète (la dernière tuile d'un
+// palier impair) doit être centrée, pas collée à gauche — ce que
+// justify-content: center fait nativement sur une ligne wrappée, contrairement
+// à Grid où l'item orphelin resterait dans la première colonne.
+.highlightGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-4);
+
+  > * {
+    flex: 0 1 100%;
+    min-width: 0;
+  }
+
+  @media (min-width: t.$bp-sm) {
+    > * {
+      flex-basis: calc((100% - var(--space-4)) / 2);
+    }
+  }
+
+  @media (min-width: t.$bp-md) {
+    > * {
+      flex-basis: calc((100% - 2 * var(--space-4)) / 3);
+    }
+  }
+
+  @media (min-width: t.$bp-lg) {
+    > * {
+      flex-basis: calc((100% - 4 * var(--space-4)) / 5);
+    }
+  }
 }
 
-// --- Graphiques ------------------------------------------------------------
+// --- Cartes projet / intervention ------------------------------------------
 
-.chartGrid {
+.cardGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: var(--space-6);
 }
 
-// --- Boutons ---------------------------------------------------------------
+// --- Appel à l'action unique ------------------------------------------------
 
-.buttonRow {
+.cta {
   display: flex;
-  gap: var(--space-4);
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-// --- Palette -----------------------------------------------------------
-
-.palette {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: var(--space-4);
-}
-
-.swatch {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.swatchColor {
-  height: var(--space-16);
-  background: var(--swatch-color);
-  border: var(--border-width) solid var(--ink);
-  @include t.staircase-corners(t.$stair-size);
-  // Aplat pur : pas d'anti-aliasing recherché sur les contours pixel.
-  image-rendering: pixelated;
-}
-
-.swatchLabel {
-  font-family: var(--font-mono), monospace;
-  font-size: var(--fs-xs);
-  color: var(--text-muted);
-}
-
-// --- Spécimen typographique ---------------------------------------------
-
-.typeSpecimen {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-
-.typePixel {
-  font-family: var(--font-pixel), monospace;
-  font-size: var(--fs-lg);
-  color: var(--text);
-}
-
-.typeMono {
-  font-family: var(--font-mono), monospace;
-  font-variant-numeric: tabular-nums;
-  font-size: var(--fs-md);
-  color: var(--accent-green);
-}
-
-.typeRead {
-  font-family: var(--font-read), sans-serif;
-  font-size: var(--fs-base);
-  line-height: var(--lh-relaxed);
-  color: var(--text);
-  max-width: var(--prose-measure);
-  margin: 0;
+  justify-content: center;
 }
