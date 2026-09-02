@@ -1,0 +1,32 @@
+@use "@/styles/tokens" as t;
+
+// Style extrait de ExperienceCard.module.scss (badge de scope), désormais
+// partagé avec le filtre d'interventions et la fiche intervention.
+.badge {
+  display: inline-block;
+  font-family: var(--font-pixel), monospace;
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  background: var(--accent-blue);
+  border: var(--border-width) solid var(--ink);
+  padding: var(--space-1) var(--space-2);
+}
+
+// Variante bouton (filtre) : la couleur d'accent reste réservée à l'état
+// actif — voir Badge.tsx et la règle "pas de couleur par scope" du plan.
+button.badge {
+  appearance: none;
+  cursor: pointer;
+
+  @include t.focus-ring();
+
+  &:hover {
+    background: var(--accent-cyan);
+  }
+}
+
+.active {
+  background: var(--accent-cyan);
+}

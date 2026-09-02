@@ -23,16 +23,10 @@
   gap: var(--space-3);
 }
 
+// Le badge lui-même vient de Badge/ ; ici on ne pose que sa position dans le
+// flex column du frame (voir Badge.module.scss pour l'apparence).
 .badge {
   align-self: flex-start;
-  font-family: var(--font-pixel), monospace;
-  font-size: var(--fs-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--ink);
-  background: var(--accent-blue);
-  border: var(--border-width) solid var(--ink);
-  padding: var(--space-1) var(--space-2);
 }
 
 .result {

@@ -180,6 +180,27 @@
         }
       ],
       "retrospective": "[placeholder]"
+    },
+    {
+      "id": "exemple-intervention-3",
+      "title": "[placeholder] Third example case study entry",
+      "period": "2026",
+      "context": "[placeholder] anonymized context.",
+      "constraints": "[placeholder] real constraints.",
+      "scope": "produit",
+      "myRole": "[placeholder] exact role.",
+      "decisions": "[placeholder] decisions made.",
+      "featured": false,
+      "metrics": [
+        {
+          "label": "example metric",
+          "value": "0",
+          "unit": "placeholder",
+          "method": "[placeholder] measurement method",
+          "measuredAt": "2026-09-01"
+        }
+      ],
+      "retrospective": "[placeholder]"
     }
   ],
   "skills": [

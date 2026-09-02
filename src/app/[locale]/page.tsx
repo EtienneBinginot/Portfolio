@@ -16,8 +16,11 @@ export default async function Home({ params }: { params: LocaleParams }) {
     notFound();
   }
   setRequestLocale(locale);
-  const t = await getTranslations("HomePage");
-  const data = await getData(locale);
+  const [t, tScope, data] = await Promise.all([
+    getTranslations("HomePage"),
+    getTranslations("Scope"),
+    getData(locale),
+  ]);
 
   const featuredProjects = data.projects
     .filter((project) => project.featured)
@@ -68,7 +71,7 @@ export default async function Home({ params }: { params: LocaleParams }) {
             <ExperienceCard
               key={intervention.id}
               case={intervention}
-              scopeLabel={t(`scope.${intervention.scope}`)}
+              scopeLabel={tScope(intervention.scope)}
             />
           ))}
         </div>

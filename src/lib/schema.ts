@@ -185,5 +185,6 @@ export type Chart = z.infer<typeof ChartSchema>;
 export type Highlight = z.infer<typeof HighlightSchema>;
 export type Project = z.infer<typeof ProjectSchema>;
 export type Case = z.infer<typeof CaseSchema>;
+export type CaseScope = z.infer<typeof CaseScopeSchema>;
 export type Skill = z.infer<typeof SkillSchema>;
 export type Chantier = z.infer<typeof ChantierSchema>;

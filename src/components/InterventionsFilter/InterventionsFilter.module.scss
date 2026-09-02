@@ -1,0 +1,18 @@
+.filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-6);
+}
+
+.noResults {
+  font-family: var(--font-read), sans-serif;
+  font-size: var(--fs-md);
+  color: var(--text-muted);
+}

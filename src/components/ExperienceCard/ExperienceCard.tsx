@@ -1,6 +1,7 @@
 import type { Case } from "@/lib/schema";
 import { Link } from "@/i18n/navigation";
 import PixelBorder from "@/components/PixelBorder/PixelBorder";
+import Badge from "@/components/Badge/Badge";
 import styles from "./ExperienceCard.module.scss";
 
 type ExperienceCardProps = {
@@ -24,7 +25,7 @@ export default function ExperienceCard({
       className={[styles.link, className].filter(Boolean).join(" ")}
     >
       <PixelBorder className={styles.frame}>
-        <span className={styles.badge}>{scopeLabel}</span>
+        <Badge className={styles.badge}>{scopeLabel}</Badge>
         {leadMetric && (
           <p className={styles.result}>
             <span className={styles.resultValue}>{leadMetric.value}</span>
