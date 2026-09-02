@@ -1,0 +1,16 @@
+# Fin de ligne LF forcée pour tous les fichiers texte, quel que soit le
+# core.autocrlf local (Git for Windows le met à true par défaut) — évite les
+# faux positifs "modified" (CRLF vs LF) que Prettier ne reproduit jamais,
+# puisqu'il écrit toujours en LF.
+* text=auto eol=lf
+
+# Binaires explicites : jamais de conversion de fin de ligne.
+*.ico binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
