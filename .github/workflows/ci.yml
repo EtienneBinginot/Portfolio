@@ -31,5 +31,5 @@ jobs:
       - name: Vitest
         run: npm test
 
-      - name: Build (includes data.json schema validation)
+      - name: Build (includes data.*.json schema validation)
         run: npm run build
