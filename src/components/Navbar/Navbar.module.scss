@@ -26,6 +26,24 @@
   @include t.focus-ring();
 }
 
+.menuToggle {
+  display: none;
+  appearance: none;
+  cursor: pointer;
+  border: var(--border-width) solid var(--ink);
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-pixel), monospace;
+  font-size: var(--fs-xs);
+  padding: var(--space-2) var(--space-3);
+
+  @include t.focus-ring();
+
+  @media (max-width: t.$bp-sm) {
+    display: inline-flex;
+  }
+}
+
 .links {
   display: flex;
   flex-wrap: wrap;
@@ -36,6 +54,21 @@
 
   @media (min-width: t.$bp-sm) {
     gap: var(--space-2) var(--space-6);
+  }
+
+  // Sous ~480px, le menu ne s'affiche qu'au clic sur le hamburger — bascule
+  // en un seul saut net (display), jamais un slide animé.
+  @media (max-width: t.$bp-sm) {
+    display: none;
+    flex-basis: 100%;
+    flex-direction: column;
+    order: 3;
+  }
+}
+
+.linksOpen {
+  @media (max-width: t.$bp-sm) {
+    display: flex;
   }
 }
 

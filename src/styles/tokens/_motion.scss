@@ -1,0 +1,9 @@
+// Jetons de mouvement "pixel art" : transitions/animations déclenchées par
+// une action utilisateur (survol, clic). Par défaut en escalier (steps(),
+// voir le mixin stepped() dans _mixins.scss) — un mouvement discret doit
+// rester lisible comme une succession de trames nettes, pas comme une
+// interpolation continue. Exception assumée : le balayage au survol des
+// cartes (PixelBorder.module.scss) est en easing fluide, sur demande
+// explicite — c'est la seule interaction du site à déroger à la règle.
+
+$motion-duration-base: 240ms; // balayage au survol des cartes

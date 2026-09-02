@@ -3,22 +3,36 @@ import PixelBorder from "@/components/PixelBorder/PixelBorder";
 import BarCompare from "./BarCompare";
 import Timeseries from "./Timeseries";
 import Distribution from "./Distribution";
+import { cx } from "@/lib/cx";
 import styles from "./Chart.module.scss";
 
 type ChartProps = {
   chart: ChartData;
   className?: string;
+  /** Libellé traduit du badge d'échelle logarithmique (voir Chart.logScale
+   * dans les fichiers de messages) — pas de texte codé en dur ici. */
+  logScaleLabel?: string;
+  /** "standalone" (défaut) : présentation pleine page. "inline" : largeur
+   * contrainte à la mesure de prose et légende plus discrète (MDX). */
+  variant?: "standalone" | "inline";
 };
 
-export default function Chart({ chart, className }: ChartProps) {
+export default function Chart({
+  chart,
+  className,
+  logScaleLabel,
+  variant = "standalone",
+}: ChartProps) {
+  const inline = variant === "inline";
+
   return (
-    <figure className={[styles.figure, className].filter(Boolean).join(" ")}>
+    <figure className={cx(styles.figure, inline && styles.inline, className)}>
       <PixelBorder>
         <div className={styles.header}>
           <h3 className={styles.title}>{chart.title}</h3>
-          {chart.scale === "log" && (
+          {chart.scale === "log" && logScaleLabel && (
             <span className={styles.logBadge} role="note">
-              échelle logarithmique
+              {logScaleLabel}
             </span>
           )}
         </div>
@@ -28,7 +42,9 @@ export default function Chart({ chart, className }: ChartProps) {
           {chart.type === "distribution" && <Distribution chart={chart} />}
         </div>
       </PixelBorder>
-      <figcaption className={styles.caption}>
+      <figcaption
+        className={cx(styles.caption, inline && styles.captionInline)}
+      >
         {chart.caption}
         <span className={styles.source}> — Source : {chart.source}</span>
       </figcaption>

@@ -7,6 +7,7 @@ import Chart from "@/components/Chart/Chart";
 import Badge from "@/components/Badge/Badge";
 import { getData } from "@/lib/data";
 import { routing } from "@/i18n/routing";
+import { cx } from "@/lib/cx";
 import styles from "./page.module.scss";
 
 type InterventionPageParams = Promise<{ locale: string; id: string }>;
@@ -53,15 +54,17 @@ export default async function InterventionPage({
     notFound();
   }
   setRequestLocale(locale);
-  const [t, tScope, data] = await Promise.all([
+  const [t, tScope, tChart, data] = await Promise.all([
     getTranslations("InterventionPage"),
     getTranslations("Scope"),
+    getTranslations("Chart"),
     getData(locale),
   ]);
   const intervention = data.cases.find((c) => c.id === id);
   if (!intervention) {
     notFound();
   }
+  const logScaleLabel = tChart("logScale");
 
   return (
     <main className={styles.main}>
@@ -74,35 +77,50 @@ export default async function InterventionPage({
       </header>
 
       <section className={styles.section} aria-labelledby="context-heading">
-        <h2 id="context-heading" className={styles.sectionTitle}>
+        <h2
+          id="context-heading"
+          className={cx(styles.sectionTitle, styles.sectionTitleNarrative)}
+        >
           {t("contextHeading")}
         </h2>
         <p className={styles.prose}>{intervention.context}</p>
       </section>
 
       <section className={styles.section} aria-labelledby="constraints-heading">
-        <h2 id="constraints-heading" className={styles.sectionTitle}>
+        <h2
+          id="constraints-heading"
+          className={cx(styles.sectionTitle, styles.sectionTitleNarrative)}
+        >
           {t("constraintsHeading")}
         </h2>
         <p className={styles.prose}>{intervention.constraints}</p>
       </section>
 
       <section className={styles.section} aria-labelledby="role-heading">
-        <h2 id="role-heading" className={styles.sectionTitle}>
+        <h2
+          id="role-heading"
+          className={cx(styles.sectionTitle, styles.sectionTitleNarrative)}
+        >
           {t("roleHeading")}
         </h2>
         <p className={styles.prose}>{intervention.myRole}</p>
       </section>
 
       <section className={styles.section} aria-labelledby="decisions-heading">
-        <h2 id="decisions-heading" className={styles.sectionTitle}>
+        <h2
+          id="decisions-heading"
+          className={cx(styles.sectionTitle, styles.sectionTitleNarrative)}
+        >
           {t("decisionsHeading")}
         </h2>
         <p className={styles.prose}>{intervention.decisions}</p>
       </section>
 
       <section className={styles.section} aria-labelledby="result-heading">
-        <h2 id="result-heading" className={styles.sectionTitle}>
+        <h2
+          id="result-heading"
+          className={cx(styles.sectionTitle, styles.sectionTitleData)}
+        >
           {t("resultHeading")}
         </h2>
         <div className={styles.metricGrid}>
@@ -114,10 +132,13 @@ export default async function InterventionPage({
 
       {intervention.chart && (
         <section className={styles.section} aria-labelledby="chart-heading">
-          <h2 id="chart-heading" className={styles.sectionTitle}>
+          <h2
+            id="chart-heading"
+            className={cx(styles.sectionTitle, styles.sectionTitleData)}
+          >
             {t("chartHeading")}
           </h2>
-          <Chart chart={intervention.chart} />
+          <Chart chart={intervention.chart} logScaleLabel={logScaleLabel} />
         </section>
       )}
 
@@ -126,7 +147,10 @@ export default async function InterventionPage({
           className={styles.section}
           aria-labelledby="retrospective-heading"
         >
-          <h2 id="retrospective-heading" className={styles.sectionTitle}>
+          <h2
+            id="retrospective-heading"
+            className={cx(styles.sectionTitle, styles.sectionTitleNarrative)}
+          >
             {t("retrospectiveHeading")}
           </h2>
           <p className={styles.prose}>{intervention.retrospective}</p>

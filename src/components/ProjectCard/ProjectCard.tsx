@@ -19,7 +19,7 @@ export default function ProjectCard({ project, className }: ProjectCardProps) {
       href={`/projets/${project.id}`}
       className={[styles.link, className].filter(Boolean).join(" ")}
     >
-      <PixelBorder className={styles.frame}>
+      <PixelBorder className={styles.frame} sweepOnHover>
         {leadMetric && (
           <p className={styles.result}>
             <span className={styles.resultValue}>{leadMetric.value}</span>

@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { NextIntlClientProvider } from "next-intl";
 import { usePathname } from "next/navigation";
 import messages from "@/messages/fr.json";
@@ -56,5 +56,26 @@ describe("Navbar", () => {
         screen.getByRole("link", { name: messages.Navbar[item.key] }),
       ).toBeInTheDocument();
     }
+  });
+
+  it("le bouton hamburger ouvre/ferme le menu (aria-expanded)", () => {
+    vi.mocked(usePathname).mockReturnValue("/fr");
+    renderNavbar();
+    const toggle = screen.getByRole("button", { name: "Menu" });
+    expect(toggle).toHaveAttribute("aria-expanded", "false");
+    fireEvent.click(toggle);
+    expect(toggle).toHaveAttribute("aria-expanded", "true");
+    fireEvent.click(toggle);
+    expect(toggle).toHaveAttribute("aria-expanded", "false");
+  });
+
+  it("le menu se ferme sur Échap", () => {
+    vi.mocked(usePathname).mockReturnValue("/fr");
+    renderNavbar();
+    const toggle = screen.getByRole("button", { name: "Menu" });
+    fireEvent.click(toggle);
+    expect(toggle).toHaveAttribute("aria-expanded", "true");
+    fireEvent.keyDown(window, { key: "Escape" });
+    expect(toggle).toHaveAttribute("aria-expanded", "false");
   });
 });

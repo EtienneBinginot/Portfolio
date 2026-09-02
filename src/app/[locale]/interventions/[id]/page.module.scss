@@ -45,6 +45,8 @@
   color: var(--text);
 }
 
+@include t.section-title-variants();
+
 .prose {
   font-family: var(--font-read), sans-serif;
   font-size: var(--fs-md);
@@ -61,5 +63,6 @@
 
   > * {
     flex: 1 1 220px;
+    @include t.metric-grid-only-child();
   }
 }

@@ -17,3 +17,29 @@
   background: var(--pixel-fill, var(--surface));
   @include t.staircase-corners();
 }
+
+// Balayage au survol (opt-in, voir PixelBorder.tsx sweepOnHover) : un liseré
+// qui se déploie en paliers le long du bas du panneau. S'ajoute au swap de
+// --pixel-border-color posé par l'appelant (ProjectCard/ExperienceCard) sans
+// le remplacer — .frame reste seul responsable de la couleur de contour.
+.sweepable .panel {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: var(--stair-size);
+    background: var(--accent-cyan);
+    clip-path: inset(0 100% 0 0);
+    pointer-events: none;
+    // Seule exception "fluide" du site (demande explicite) : ce survol
+    // gagne à être perçu comme un vrai balayage continu plutôt que par
+    // paliers — contrairement aux autres micro-interactions, en steps().
+    transition: clip-path var(--motion-duration-base) ease-out;
+  }
+}
+
+.sweepable:hover .panel::after {
+  clip-path: inset(0 0 0 0);
+}
