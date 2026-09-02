@@ -42,22 +42,11 @@
 .link {
   font-family: var(--font-pixel), monospace;
   font-size: var(--fs-xs);
-  text-decoration: none;
-  color: var(--text-muted);
-  padding-bottom: var(--space-1);
-  border-bottom: var(--border-width) solid transparent;
-
-  &:hover {
-    color: var(--text);
-  }
-
-  @include t.focus-ring();
+  @include t.nav-link(".active");
 }
 
-// Indicateur de page active : trait plat en dur, pas de soulignement animé
-// ni d'ombre — cohérent avec l'interdiction de dithering/flou sur
-// l'interactif.
+// Classe ciblée par t.nav-link(".active") ci-dessus (sélecteur composé
+// .link.active dans le CSS compilé) : ce bloc vide suffit à faire exporter
+// `active` par les CSS Modules.
 .active {
-  color: var(--accent-cyan);
-  border-bottom-color: var(--accent-cyan);
 }

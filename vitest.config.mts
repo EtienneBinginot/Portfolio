@@ -14,6 +14,16 @@ export default defineConfig({
     globals: true,
     setupFiles: ["./test/setup.ts"],
     include: ["src/**/*.test.{ts,tsx}"],
+    // next-intl doit être traité par le résolveur de Vite plutôt que chargé
+    // tel quel par Node : son sous-module "next/navigation" n'a pas
+    // d'entrée "exports" dans next/package.json, et le loader ESM natif de
+    // Node (utilisé pour les dépendances externalisées) refuse de deviner
+    // l'extension .js là où le bundler de Vite le fait sans problème.
+    server: {
+      deps: {
+        inline: ["next-intl"],
+      },
+    },
     // Les tests unitaires vérifient le comportement des composants, pas le
     // rendu visuel (déjà validé manuellement via les captures Playwright) :
     // les imports *.scss/*.css sont remplacés par des chaînes vides plutôt

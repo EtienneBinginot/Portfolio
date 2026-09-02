@@ -1,0 +1,45 @@
+{
+  "Metadata": {
+    "title": "Etienne Binginot — Portfolio",
+    "description": "Site vitrine personnel orienté preuve mesurée."
+  },
+  "Navbar": {
+    "home": "Accueil",
+    "projects": "Projets",
+    "interventions": "Interventions",
+    "about": "À propos"
+  },
+  "Footer": {
+    "contact": "Contact",
+    "lastUpdated": "Mise à jour : {date}"
+  },
+  "LanguageSwitcher": {
+    "label": "Langue",
+    "fr": "Français",
+    "en": "English"
+  },
+  "HomePage": {
+    "eyebrow": "Portfolio — Phase 2 / Composants de données",
+    "metricsHeading": "Bloc chiffre (MetricBlock)",
+    "metricsNote": "Aucun chiffre n'est affiché sans méthode de mesure ni date — la règle est imposée par le schéma Zod, pas seulement documentée.",
+    "spacingValue": "4/8px",
+    "spacingLabel": "grille d'espacement",
+    "spacingMethod": "PixelBorder, variante contour épais",
+    "spacingMeasuredAt": "Phase 1",
+    "buttonsHeading": "Boutons (PixelButton)",
+    "buttonsNote": "Relief à deux couleurs plates sur les bords, jamais de box-shadow flou. Le hover permute entre deux tons plats du même ramp.",
+    "buttonPrimary": "Action principale",
+    "buttonSecondary": "Action secondaire",
+    "buttonDisabled": "Désactivé",
+    "chartsHeading": "Graphiques (Chart)",
+    "chartsNote": "Rendu 100% côté serveur, zéro JS client : SVG en aplats, coordonnées alignées sur la grille 4px, shape-rendering: crispEdges. L'échelle logarithmique est signalée explicitement (badge + suffixe d'axe) quand elle est utilisée.",
+    "distributionDemoTitle": "[placeholder] distribution des temps de réponse",
+    "distributionDemoCaption": "Source : placeholder — date de mesure : 2026-09-01",
+    "distributionSeriesName": "temps de réponse",
+    "paletteHeading": "Palette forêt / lagon",
+    "typeHeading": "Spécimen typographique",
+    "typePixelLabel": "Silkscreen — titres, UI, navigation",
+    "typeMonoLabel": "1 234,56 — IBM Plex Mono, tabular-nums",
+    "typeReadSample": "Inter — police de lecture pour la prose et les write-ups, mesure limitée à environ 70 caractères pour rester confortable sur les paragraphes longs."
+  }
+}

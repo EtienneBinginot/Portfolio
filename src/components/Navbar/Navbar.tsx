@@ -1,18 +1,21 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
+import LanguageSwitcher from "@/components/LanguageSwitcher/LanguageSwitcher";
+import { cx } from "@/lib/cx";
 import styles from "./Navbar.module.scss";
 
 export const NAV_ITEMS = [
-  { href: "/", label: "Accueil" },
-  { href: "/projets", label: "Projets" },
-  { href: "/interventions", label: "Interventions" },
-  { href: "/about", label: "À propos" },
-];
+  { href: "/", key: "home" },
+  { href: "/projets", key: "projects" },
+  { href: "/interventions", key: "interventions" },
+  { href: "/about", key: "about" },
+] as const;
 
 export default function Navbar() {
   const pathname = usePathname();
+  const t = useTranslations("Navbar");
 
   return (
     <nav className={styles.nav}>
@@ -30,17 +33,16 @@ export default function Navbar() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className={[styles.link, isActive ? styles.active : ""]
-                    .filter(Boolean)
-                    .join(" ")}
+                  className={cx(styles.link, isActive && styles.active)}
                   aria-current={isActive ? "page" : undefined}
                 >
-                  {item.label}
+                  {t(item.key)}
                 </Link>
               </li>
             );
           })}
         </ul>
+        <LanguageSwitcher />
       </div>
     </nav>
   );
