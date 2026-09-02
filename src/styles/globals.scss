@@ -67,7 +67,6 @@
 
 html,
 body {
-  height: 100%;
   margin: 0;
   padding: 0;
 }
@@ -88,12 +87,25 @@ html {
 }
 
 body {
+  // Pied de page collé en bas : body en colonne flex sur toute la hauteur du
+  // viewport (min-height, pas height, pour laisser grandir les pages dont le
+  // contenu dépasse) ; `> main` (unique enfant direct entre nav et footer,
+  // voir layout.tsx — NextIntlClientProvider ne rend pas de nœud DOM) absorbe
+  // l'espace restant. Sans ça, une page courte laisse le footer collé sous
+  // le contenu au lieu du bas de l'écran.
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-read), system-ui, sans-serif;
   font-size: var(--fs-base);
   line-height: var(--lh-normal);
   -webkit-font-smoothing: antialiased;
+}
+
+body > main {
+  flex: 1 0 auto;
 }
 
 img,
