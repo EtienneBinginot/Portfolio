@@ -28,5 +28,21 @@
       "infrastructure": "Infrastructure",
       "produit": "Produit"
     }
+  },
+  "ProjectsPage": {
+    "metaTitle": "Projets — Etienne Binginot",
+    "metaDescription": "Toutes les fiches projet, preuves mesurées à l'appui.",
+    "heading": "Projets"
+  },
+  "ProjectPage": {
+    "stackLabel": "Stack technique",
+    "repoLabel": "Code source",
+    "demoLabel": "Démo",
+    "problemHeading": "Problème",
+    "decisionsHeading": "Décisions",
+    "metricsHeading": "Chiffres clés",
+    "chartHeading": "Graphique",
+    "writeupHeading": "En détail",
+    "retrospectiveHeading": "Rétrospective"
   }
 }

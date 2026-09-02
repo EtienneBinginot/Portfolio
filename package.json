@@ -18,8 +18,10 @@
     "validate-data": "tsx scripts/validate-data.ts"
   },
   "dependencies": {
+    "gray-matter": "^4.0.3",
     "next": "15.5.25",
     "next-intl": "4.14.2",
+    "next-mdx-remote-client": "^2.1.12",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "zod": "4.5.4"

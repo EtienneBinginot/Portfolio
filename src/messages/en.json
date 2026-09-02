@@ -28,5 +28,21 @@
       "infrastructure": "Infrastructure",
       "produit": "Product"
     }
+  },
+  "ProjectsPage": {
+    "metaTitle": "Projects — Etienne Binginot",
+    "metaDescription": "Every project write-up, backed by measured proof.",
+    "heading": "Projects"
+  },
+  "ProjectPage": {
+    "stackLabel": "Tech stack",
+    "repoLabel": "Source code",
+    "demoLabel": "Live demo",
+    "problemHeading": "Problem",
+    "decisionsHeading": "Decisions",
+    "metricsHeading": "Key figures",
+    "chartHeading": "Chart",
+    "writeupHeading": "In detail",
+    "retrospectiveHeading": "Retrospective"
   }
 }
