@@ -98,7 +98,6 @@ export const ProjectSchema = z.object({
   featured: z.boolean().default(false),
   metrics: z.array(MetricSchema),
   chart: ChartSchema.optional(),
-  writeup: z.string().optional(),
   retrospective: z.string().optional(),
 });
 
