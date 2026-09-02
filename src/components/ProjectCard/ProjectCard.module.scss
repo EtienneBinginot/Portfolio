@@ -12,7 +12,7 @@
   @include t.focus-ring();
 
   &:hover .frame {
-    --pixel-fill: var(--accent-cyan);
+    --pixel-border-color: var(--accent-cyan);
   }
 }
 

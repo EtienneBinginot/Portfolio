@@ -22,12 +22,12 @@
     "highlightsHeading": "In numbers",
     "projectsHeading": "Projects",
     "interventionsHeading": "Case studies",
-    "ctaLabel": "See all projects",
-    "scope": {
-      "mission": "Client mission",
-      "infrastructure": "Infrastructure",
-      "produit": "Product"
-    }
+    "ctaLabel": "See all projects"
+  },
+  "Scope": {
+    "mission": "Client mission",
+    "infrastructure": "Infrastructure",
+    "produit": "Product"
   },
   "ProjectsPage": {
     "metaTitle": "Projects — Etienne Binginot",
@@ -43,6 +43,24 @@
     "metricsHeading": "Key figures",
     "chartHeading": "Chart",
     "writeupHeading": "In detail",
+    "retrospectiveHeading": "Retrospective"
+  },
+  "InterventionsPage": {
+    "metaTitle": "Case studies — Etienne Binginot",
+    "metaDescription": "Anonymized real-world cases, filterable by domain.",
+    "heading": "Interventions",
+    "filterAllLabel": "All",
+    "filterGroupLabel": "Filter by domain",
+    "noResultsLabel": "No cases for this filter."
+  },
+  "InterventionPage": {
+    "periodLabel": "Period",
+    "contextHeading": "Context",
+    "constraintsHeading": "Constraints",
+    "roleHeading": "Role",
+    "decisionsHeading": "Decisions",
+    "resultHeading": "Measured result",
+    "chartHeading": "Chart",
     "retrospectiveHeading": "Retrospective"
   }
 }

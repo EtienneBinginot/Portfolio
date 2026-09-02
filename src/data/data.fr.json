@@ -180,6 +180,27 @@
         }
       ],
       "retrospective": "[placeholder]"
+    },
+    {
+      "id": "exemple-intervention-3",
+      "title": "[placeholder] Troisième exemple de fiche intervention",
+      "period": "2026",
+      "context": "[placeholder] contexte anonymisé.",
+      "constraints": "[placeholder] contraintes réelles.",
+      "scope": "produit",
+      "myRole": "[placeholder] rôle exact.",
+      "decisions": "[placeholder] décisions prises.",
+      "featured": false,
+      "metrics": [
+        {
+          "label": "exemple de métrique",
+          "value": "0",
+          "unit": "placeholder",
+          "method": "[placeholder] méthode de mesure",
+          "measuredAt": "2026-09-01"
+        }
+      ],
+      "retrospective": "[placeholder]"
     }
   ],
   "skills": [
