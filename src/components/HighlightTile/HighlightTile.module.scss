@@ -17,12 +17,15 @@
 
   @include t.focus-ring();
 
-  // Le fond du panneau intérieur (--pixel-fill, lu par PixelBorder.panel)
-  // est une custom property héritée : la fixer ici suffit à la faire
-  // remonter jusqu'au panneau, sans cibler sa classe scopée. Changement net,
-  // pas de transition animée (règle anti-flou/anti-animation de l'accroche).
+  // La couleur du cadre extérieur (--pixel-border-color, lu par
+  // PixelBorder.frame) est une custom property héritée : la fixer ici suffit
+  // à la faire remonter jusqu'au cadre, sans cibler sa classe scopée. Un
+  // liseré cyan plutôt qu'un aplat plein panneau — garde le panneau lisible
+  // (pas de wash-out texte clair sur fond cyan clair) et respecte la couleur
+  // comme accent rare (voir tokens/_colors.scss). Changement net, pas de
+  // transition animée (règle anti-flou/anti-animation de l'accroche).
   &:hover .frame {
-    --pixel-fill: var(--accent-cyan);
+    --pixel-border-color: var(--accent-cyan);
   }
 }
 
