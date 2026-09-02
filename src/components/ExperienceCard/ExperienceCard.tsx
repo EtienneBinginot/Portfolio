@@ -24,7 +24,7 @@ export default function ExperienceCard({
       href={`/interventions/${intervention.id}`}
       className={[styles.link, className].filter(Boolean).join(" ")}
     >
-      <PixelBorder className={styles.frame}>
+      <PixelBorder className={styles.frame} sweepOnHover>
         <Badge className={styles.badge}>{scopeLabel}</Badge>
         {leadMetric && (
           <p className={styles.result}>

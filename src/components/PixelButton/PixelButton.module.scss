@@ -1,9 +1,9 @@
 @use "@/styles/tokens" as t;
 
-// Bouton pixel art : relief simulé par deux couleurs plates sur les bords
-// (mixin two-tone-relief), jamais de box-shadow flou. Hover = permutation
-// entre deux tons plats du même ramp, jamais un dithering (règle posée dans
-// tokens/_colors.scss : le dithering est interdit sur l'interactif).
+// Bouton pixel art : relief à un seul ton (jamais de box-shadow flou),
+// uniquement en bas/droite — pas de filet en haut/gauche. Visible surtout
+// aux coins, où le relief épouse le clip-path en escalier. :active inverse
+// le côté du relief (haut/gauche) pour simuler l'enfoncement.
 .button {
   appearance: none;
   cursor: pointer;
@@ -19,23 +19,18 @@
   font-size: var(--fs-sm);
   line-height: var(--lh-tight);
   @include t.staircase-corners(t.$stair-size);
-  @include t.two-tone-relief(
-    $light: t.$accent-cyan,
-    $dark: t.$ink,
-    $size: t.$relief-size
-  );
+  box-shadow:
+    inset calc(-1 * var(--relief-size)) 0 0 0 var(--ink),
+    inset 0 calc(-1 * var(--relief-size)) 0 0 var(--ink);
 
   &:hover {
     background: var(--pixel-btn-bg-hover, var(--accent-cyan));
   }
 
   &:active {
-    @include t.two-tone-relief(
-      $light: t.$accent-cyan,
-      $dark: t.$ink,
-      $size: t.$relief-size,
-      $pressed: true
-    );
+    box-shadow:
+      inset var(--relief-size) 0 0 0 var(--ink),
+      inset 0 var(--relief-size) 0 0 var(--ink);
   }
 
   @include t.focus-ring();

@@ -7,7 +7,8 @@
     "home": "Accueil",
     "projects": "Projets",
     "interventions": "Interventions",
-    "about": "À propos"
+    "about": "À propos",
+    "menuToggle": "Menu"
   },
   "Footer": {
     "contact": "Contact",
@@ -28,6 +29,9 @@
     "mission": "Mission client",
     "infrastructure": "Infrastructure",
     "produit": "Produit"
+  },
+  "Chart": {
+    "logScale": "échelle logarithmique"
   },
   "ProjectsPage": {
     "metaTitle": "Projets — Etienne Binginot",
@@ -62,5 +66,10 @@
     "resultHeading": "Résultat mesuré",
     "chartHeading": "Graphique",
     "retrospectiveHeading": "Rétrospective"
+  },
+  "NotFoundPage": {
+    "title": "Page introuvable",
+    "description": "Cette page n'existe pas ou a été déplacée — vérifiez l'adresse ou repartez de l'accueil.",
+    "homeLabel": "Retour à l'accueil"
   }
 }

@@ -54,6 +54,11 @@
   --stair-size: #{t.$stair-size};
   --stair-size-lg: #{t.$stair-size-lg};
   --relief-size: #{t.$relief-size};
+
+  // Mouvement — voir tokens/_motion.scss pour la politique (steps() par
+  // défaut, une exception en easing). Neutralisées globalement par le bloc
+  // prefers-reduced-motion ci-dessous.
+  --motion-duration-base: #{t.$motion-duration-base};
 }
 
 // -----------------------------------------------------------------------

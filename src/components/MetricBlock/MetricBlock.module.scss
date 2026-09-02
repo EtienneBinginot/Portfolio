@@ -38,3 +38,29 @@
 .date {
   color: var(--text-muted);
 }
+
+// --- Variante inline (réinsertion MDX) -------------------------------------
+// Chip fine sans PixelBorder complet : la métrique réinsérée dans le texte
+// ne doit pas reproduire le bloc déjà affiché plus haut sur la page.
+.inlineChip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  border: var(--border-width) solid var(--ink);
+  padding: var(--space-1) var(--space-2);
+  background: var(--surface);
+  vertical-align: middle;
+}
+
+.inlineValue {
+  font-family: var(--font-mono), monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-md);
+  color: var(--accent-green);
+}
+
+.inlineLabel {
+  font-family: var(--font-read), sans-serif;
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}

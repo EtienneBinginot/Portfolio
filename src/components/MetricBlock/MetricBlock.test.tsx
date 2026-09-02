@@ -28,6 +28,14 @@ describe("MetricBlock", () => {
     expect(screen.queryByText("s")).not.toBeInTheDocument();
   });
 
+  it("variant inline : chip fine, sans PixelBorder", () => {
+    render(<MetricBlock {...metric} variant="inline" />);
+    expect(screen.getByText("28")).toBeInTheDocument();
+    expect(screen.getByText(metric.label)).toBeInTheDocument();
+    // La méthode/date ne sont pas reprises dans la chip.
+    expect(screen.queryByText(metric.method, { exact: false })).toBeNull();
+  });
+
   it("transmet borderColor/fill/thick à PixelBorder", () => {
     const { container } = render(
       <MetricBlock

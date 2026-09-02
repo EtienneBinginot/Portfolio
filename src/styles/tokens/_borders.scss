@@ -6,8 +6,8 @@ $border-width-thick: 4px; // épaisseur pour les éléments mis en avant
 
 // Taille d'une "marche" d'escalier utilisée par le mixin staircase-border().
 // Multiple de la grille 4px pour rester net à l'échelle pixel.
-$stair-size: 4px;
-$stair-size-lg: 8px;
+$stair-size: 8px;
+$stair-size-lg: 16px;
 
 // Épaisseur du filet de relief deux-tons (boutons, cartes en relief).
 $relief-size: 4px;

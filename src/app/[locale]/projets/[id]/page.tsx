@@ -8,6 +8,7 @@ import PixelBorder from "@/components/PixelBorder/PixelBorder";
 import { getData } from "@/lib/data";
 import { getProjectWriteup } from "@/lib/mdx";
 import { routing } from "@/i18n/routing";
+import { cx } from "@/lib/cx";
 import styles from "./page.module.scss";
 
 type ProjectPageParams = Promise<{ locale: string; id: string }>;
@@ -54,13 +55,17 @@ export default async function ProjectPage({
     notFound();
   }
   setRequestLocale(locale);
-  const t = await getTranslations("ProjectPage");
-  const data = await getData(locale);
+  const [t, tChart, data] = await Promise.all([
+    getTranslations("ProjectPage"),
+    getTranslations("Chart"),
+    getData(locale),
+  ]);
   const project = data.projects.find((p) => p.id === id);
   if (!project) {
     notFound();
   }
-  const writeup = await getProjectWriteup(project, locale);
+  const logScaleLabel = tChart("logScale");
+  const writeup = await getProjectWriteup(project, locale, logScaleLabel);
 
   return (
     <main className={styles.main}>
@@ -95,21 +100,30 @@ export default async function ProjectPage({
       </header>
 
       <section className={styles.section} aria-labelledby="problem-heading">
-        <h2 id="problem-heading" className={styles.sectionTitle}>
+        <h2
+          id="problem-heading"
+          className={cx(styles.sectionTitle, styles.sectionTitleNarrative)}
+        >
           {t("problemHeading")}
         </h2>
         <p className={styles.prose}>{project.problem}</p>
       </section>
 
       <section className={styles.section} aria-labelledby="decisions-heading">
-        <h2 id="decisions-heading" className={styles.sectionTitle}>
+        <h2
+          id="decisions-heading"
+          className={cx(styles.sectionTitle, styles.sectionTitleNarrative)}
+        >
           {t("decisionsHeading")}
         </h2>
         <p className={styles.prose}>{project.decisions}</p>
       </section>
 
       <section className={styles.section} aria-labelledby="metrics-heading">
-        <h2 id="metrics-heading" className={styles.sectionTitle}>
+        <h2
+          id="metrics-heading"
+          className={cx(styles.sectionTitle, styles.sectionTitleData)}
+        >
           {t("metricsHeading")}
         </h2>
         <div className={styles.metricGrid}>
@@ -121,16 +135,22 @@ export default async function ProjectPage({
 
       {project.chart && (
         <section className={styles.section} aria-labelledby="chart-heading">
-          <h2 id="chart-heading" className={styles.sectionTitle}>
+          <h2
+            id="chart-heading"
+            className={cx(styles.sectionTitle, styles.sectionTitleData)}
+          >
             {t("chartHeading")}
           </h2>
-          <Chart chart={project.chart} />
+          <Chart chart={project.chart} logScaleLabel={logScaleLabel} />
         </section>
       )}
 
       {writeup && (
         <section className={styles.section} aria-labelledby="writeup-heading">
-          <h2 id="writeup-heading" className={styles.sectionTitle}>
+          <h2
+            id="writeup-heading"
+            className={cx(styles.sectionTitle, styles.sectionTitleNarrative)}
+          >
             {t("writeupHeading")}
           </h2>
           <PixelBorder className={styles.writeup}>{writeup}</PixelBorder>
@@ -142,7 +162,10 @@ export default async function ProjectPage({
           className={styles.section}
           aria-labelledby="retrospective-heading"
         >
-          <h2 id="retrospective-heading" className={styles.sectionTitle}>
+          <h2
+            id="retrospective-heading"
+            className={cx(styles.sectionTitle, styles.sectionTitleNarrative)}
+          >
             {t("retrospectiveHeading")}
           </h2>
           <p className={styles.prose}>{project.retrospective}</p>

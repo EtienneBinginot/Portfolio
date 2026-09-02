@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import { cx } from "@/lib/cx";
 import styles from "./PixelBorder.module.scss";
 
 type PixelBorderProps = {
@@ -10,6 +11,11 @@ type PixelBorderProps = {
   fill?: string;
   /** Épaisseur du contour. Défaut : var(--border-width). */
   thick?: boolean;
+  /** Balayage clip-path au survol, en paliers — opt-in explicite pour les
+   * cartes cliquables (ProjectCard/ExperienceCard), pas une généralisation
+   * à tout PixelBorder. S'ajoute au swap de --pixel-border-color existant
+   * sans le remplacer. */
+  sweepOnHover?: boolean;
 };
 
 export default function PixelBorder({
@@ -18,6 +24,7 @@ export default function PixelBorder({
   borderColor,
   fill,
   thick = false,
+  sweepOnHover = false,
 }: PixelBorderProps) {
   const style = {
     ...(borderColor ? { "--pixel-border-color": borderColor } : {}),
@@ -27,7 +34,7 @@ export default function PixelBorder({
 
   return (
     <div
-      className={[styles.frame, className].filter(Boolean).join(" ")}
+      className={cx(styles.frame, sweepOnHover && styles.sweepable, className)}
       style={style}
     >
       <div className={styles.panel}>{children}</div>

@@ -32,13 +32,31 @@ describe("Chart", () => {
   });
 
   it("n'affiche pas le badge d'échelle log par défaut (linear)", () => {
-    render(<Chart chart={barChart} />);
+    render(<Chart chart={barChart} logScaleLabel="échelle logarithmique" />);
     expect(screen.queryByText("échelle logarithmique")).not.toBeInTheDocument();
   });
 
-  it("affiche le badge d'échelle log quand scale vaut log", () => {
-    render(<Chart chart={{ ...barChart, scale: "log" }} />);
+  it("affiche le badge d'échelle log traduit quand scale vaut log", () => {
+    render(
+      <Chart
+        chart={{ ...barChart, scale: "log" }}
+        logScaleLabel="échelle logarithmique"
+      />,
+    );
     expect(screen.getByText("échelle logarithmique")).toBeInTheDocument();
+  });
+
+  it("n'affiche pas de badge d'échelle log si logScaleLabel est absent", () => {
+    render(<Chart chart={{ ...barChart, scale: "log" }} />);
+    expect(screen.queryByText("échelle logarithmique")).not.toBeInTheDocument();
+  });
+
+  it("applique la classe inline en variant inline", () => {
+    const { container } = render(
+      <Chart chart={barChart} variant="inline" className="custom" />,
+    );
+    const figure = container.querySelector("figure");
+    expect(figure?.className).toContain("custom");
   });
 
   it.each([

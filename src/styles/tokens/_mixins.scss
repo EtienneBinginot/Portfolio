@@ -2,6 +2,17 @@
 @use "colors" as c;
 @use "borders" as b;
 
+// Seul point d'entrée pour toute transition du site : une courbe en
+// escalier (jamais d'easing/cubic-bezier), calée sur les jetons de
+// mouvement (tokens/_motion.scss). $duration attend "fast"/"base"/"slow"
+// (résolu en var(--motion-duration-#{$duration})) ; $steps est un nombre
+// de paliers (ex. t.$motion-steps-sweep), pas une variable CSS — sass en a
+// besoin en dur pour composer la fonction steps().
+@mixin stepped($property, $duration, $steps) {
+  transition: #{$property} var(--motion-duration-#{$duration})
+    steps(#{$steps}, jump-end);
+}
+
 // Coins en escalier via clip-path, à la place de border-radius. $size
 // contrôle la taille de la marche (défaut : $stair-size).
 @mixin staircase-corners($size: b.$stair-size) {
@@ -56,6 +67,32 @@
   &:focus-visible {
     outline: var(--border-width) solid var(--accent-cyan);
     outline-offset: var(--space-1);
+  }
+}
+
+// Titres de section des pages fiche (projet, intervention) : les sections
+// "récit" (Problème/Contexte/Décisions/Rétrospective...) restent au ton
+// neutre, les sections "preuve chiffrée" (Chiffres clés/Résultat mesuré/
+// Graphique) reprennent l'accent vert des métriques pour signaler qu'on
+// quitte la prose pour de la donnée mesurée. Partagé par les deux pages
+// fiche plutôt que dupliqué à l'identique dans chaque page.module.scss.
+@mixin section-title-variants {
+  .sectionTitleNarrative {
+    color: var(--text);
+  }
+
+  .sectionTitleData {
+    color: var(--accent-green);
+  }
+}
+
+// Une métrique seule dans .metricGrid ne doit pas s'étirer sur toute la
+// largeur de la section — elle garde la largeur d'une carte normale,
+// centrée par le flex-wrap du parent. À inclure dans la règle `> *` de
+// .metricGrid.
+@mixin metric-grid-only-child {
+  &:only-child {
+    flex: 0 1 320px;
   }
 }
 

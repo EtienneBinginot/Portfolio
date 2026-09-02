@@ -40,6 +40,16 @@
   max-width: var(--prose-measure);
 }
 
+// --- Variante inline (réinsertion MDX) -------------------------------------
+.inline {
+  max-width: var(--prose-measure);
+  gap: var(--space-1);
+}
+
+.captionInline {
+  margin: 0;
+}
+
 .source {
   color: var(--text-muted);
 }
