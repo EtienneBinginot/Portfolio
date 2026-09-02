@@ -1,15 +1,22 @@
+import { getFormatter, getLocale, getTranslations } from "next-intl/server";
 import styles from "./Footer.module.scss";
-import { data } from "@/lib/data";
+import { getData } from "@/lib/data";
+import type { Locale } from "@/i18n/routing";
 
-// Évaluée au build (page statique) : reflète la date de génération du site,
-// pas la date de visite.
-const lastUpdated = new Date().toLocaleDateString("fr-FR", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
+export default async function Footer() {
+  const locale = (await getLocale()) as Locale;
+  const t = await getTranslations("Footer");
+  const format = await getFormatter();
+  const data = await getData(locale);
 
-export default function Footer() {
+  // Évaluée au rendu : reflète la date de génération du site, pas la date
+  // de visite.
+  const lastUpdated = format.dateTime(new Date(), {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
@@ -18,7 +25,7 @@ export default function Footer() {
         </span>
         <ul className={styles.links}>
           <li>
-            <a href={`mailto:${data.meta.email}`}>Contact</a>
+            <a href={`mailto:${data.meta.email}`}>{t("contact")}</a>
           </li>
           <li>
             <a href={data.meta.github} target="_blank" rel="noreferrer">
@@ -31,7 +38,9 @@ export default function Footer() {
             </a>
           </li>
         </ul>
-        <span className={styles.meta}>Mise à jour : {lastUpdated}</span>
+        <span className={styles.meta}>
+          {t("lastUpdated", { date: lastUpdated })}
+        </span>
       </div>
     </footer>
   );

@@ -1,0 +1,45 @@
+{
+  "Metadata": {
+    "title": "Etienne Binginot — Portfolio",
+    "description": "Personal showcase site built around measured proof."
+  },
+  "Navbar": {
+    "home": "Home",
+    "projects": "Projects",
+    "interventions": "Case studies",
+    "about": "About"
+  },
+  "Footer": {
+    "contact": "Contact",
+    "lastUpdated": "Last updated: {date}"
+  },
+  "LanguageSwitcher": {
+    "label": "Language",
+    "fr": "Français",
+    "en": "English"
+  },
+  "HomePage": {
+    "eyebrow": "Portfolio — Phase 2 / Data components",
+    "metricsHeading": "Metric block (MetricBlock)",
+    "metricsNote": "No number is shown without a measurement method and a date — the rule is enforced by the Zod schema, not just documented.",
+    "spacingValue": "4/8px",
+    "spacingLabel": "spacing grid",
+    "spacingMethod": "PixelBorder, thick outline variant",
+    "spacingMeasuredAt": "Phase 1",
+    "buttonsHeading": "Buttons (PixelButton)",
+    "buttonsNote": "Two flat colors of relief on the edges, never a blurred box-shadow. Hover swaps between two flat tones of the same ramp.",
+    "buttonPrimary": "Primary action",
+    "buttonSecondary": "Secondary action",
+    "buttonDisabled": "Disabled",
+    "chartsHeading": "Charts (Chart)",
+    "chartsNote": "Rendered 100% server-side, zero client JS: flat-color SVG, coordinates aligned to the 4px grid, shape-rendering: crispEdges. The logarithmic scale is called out explicitly (badge + axis suffix) whenever it's used.",
+    "distributionDemoTitle": "[placeholder] response time distribution",
+    "distributionDemoCaption": "Source: placeholder — measured on: 2026-09-01",
+    "distributionSeriesName": "response time",
+    "paletteHeading": "Forest / lagoon palette",
+    "typeHeading": "Type specimen",
+    "typePixelLabel": "Silkscreen — headings, UI, navigation",
+    "typeMonoLabel": "1,234.56 — IBM Plex Mono, tabular-nums",
+    "typeReadSample": "Inter — reading typeface for prose and write-ups, measure capped at about 70 characters to stay comfortable on long paragraphs."
+  }
+}
