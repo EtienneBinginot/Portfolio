@@ -1,7 +1,9 @@
 {
   "Metadata": {
     "title": "Etienne Binginot — Portfolio",
-    "description": "Personal showcase site built around measured proof."
+    "description": "Personal showcase site built around measured proof.",
+    "titleTemplate": "%s — Etienne Binginot",
+    "ogAlt": "Etienne Binginot — Portfolio"
   },
   "Navbar": {
     "home": "Home",
@@ -21,6 +23,8 @@
     "en": "English"
   },
   "HomePage": {
+    "metaTitle": "Etienne Binginot — Portfolio",
+    "metaDescription": "Personal showcase site built around measured proof.",
     "highlightsHeading": "In numbers",
     "projectsHeading": "Projects",
     "interventionsHeading": "Case studies",
@@ -108,6 +112,8 @@
   "NotFoundPage": {
     "title": "Page not found",
     "description": "This page doesn't exist or has moved — check the address or head back home.",
-    "homeLabel": "Back to home"
+    "homeLabel": "Back to home",
+    "metaTitle": "Page not found",
+    "metaDescription": "This page doesn't exist or has moved — check the address or head back home."
   }
 }

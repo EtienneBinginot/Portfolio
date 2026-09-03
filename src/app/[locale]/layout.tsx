@@ -7,7 +7,8 @@ import {
   setRequestLocale,
 } from "next-intl/server";
 import { IBM_Plex_Mono, Inter, Silkscreen } from "next/font/google";
-import { routing, type LocaleParams } from "@/i18n/routing";
+import { routing, type Locale, type LocaleParams } from "@/i18n/routing";
+import { SITE_URL, SITE_NAME, absoluteUrl, localeAlternates } from "@/lib/site";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import "@/styles/globals.scss";
@@ -45,10 +46,44 @@ export async function generateMetadata({
   params: LocaleParams;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "Metadata" });
+  // Le layout racine reste rendu même pour une locale invalide (notFound()
+  // ne court-circuite que le rendu de la page) : on retombe sur la locale
+  // par défaut pour que generateMetadata ne plante jamais.
+  const safeLocale: Locale = hasLocale(routing.locales, locale)
+    ? locale
+    : routing.defaultLocale;
+  const t = await getTranslations({
+    locale: safeLocale,
+    namespace: "Metadata",
+  });
+  const title = { default: t("title"), template: t("titleTemplate") };
+  const description = t("description");
+
   return {
-    title: t("title"),
-    description: t("description"),
+    metadataBase: SITE_URL,
+    title,
+    description,
+    alternates: {
+      canonical: absoluteUrl(safeLocale, ""),
+      languages: localeAlternates(""),
+    },
+    openGraph: {
+      type: "website",
+      siteName: SITE_NAME,
+      title,
+      description,
+      url: absoluteUrl(safeLocale, ""),
+      locale: safeLocale === "fr" ? "fr_FR" : "en_US",
+      images: [
+        { url: "/og-image.png", width: 1200, height: 630, alt: t("ogAlt") },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/og-image.png"],
+    },
   };
 }
 

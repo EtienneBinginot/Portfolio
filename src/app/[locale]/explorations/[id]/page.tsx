@@ -4,8 +4,10 @@ import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import MetricBlock from "@/components/MetricBlock/MetricBlock";
 import Chart from "@/components/Chart/Chart";
+import JsonLd from "@/components/JsonLd/JsonLd";
 import { getData } from "@/lib/data";
 import { routing } from "@/i18n/routing";
+import { absoluteUrl, localeAlternates } from "@/lib/site";
 import { cx } from "@/lib/cx";
 import styles from "./page.module.scss";
 
@@ -37,9 +39,18 @@ export async function generateMetadata({
   if (!exploration) {
     return {};
   }
+  const title = exploration.title;
+  const description = exploration.summary;
+  const path = `/explorations/${exploration.id}`;
   return {
-    title: `${exploration.title} — Etienne Binginot`,
-    description: exploration.summary,
+    title,
+    description,
+    alternates: {
+      canonical: absoluteUrl(locale, path),
+      languages: localeAlternates(path),
+    },
+    openGraph: { title, description, url: absoluteUrl(locale, path) },
+    twitter: { title, description },
   };
 }
 
@@ -66,6 +77,16 @@ export default async function ExplorationPage({
 
   return (
     <main className={styles.main}>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "CreativeWork",
+          name: exploration.title,
+          description: exploration.summary,
+          url: absoluteUrl(locale, `/explorations/${exploration.id}`),
+          author: { "@type": "Person", name: "Etienne Binginot" },
+        }}
+      />
       <header className={styles.header}>
         <h1 className={styles.title}>{exploration.title}</h1>
         <p className={styles.period}>

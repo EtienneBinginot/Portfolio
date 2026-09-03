@@ -7,6 +7,7 @@ import ContactLinks from "@/components/ContactLinks/ContactLinks";
 import pixelButtonStyles from "@/components/PixelButton/PixelButton.module.scss";
 import { getData } from "@/lib/data";
 import { routing, type LocaleParams } from "@/i18n/routing";
+import { absoluteUrl, localeAlternates } from "@/lib/site";
 import styles from "./page.module.scss";
 
 export function generateStaticParams() {
@@ -19,10 +20,21 @@ export async function generateMetadata({
   params: LocaleParams;
 }): Promise<Metadata> {
   const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    return {};
+  }
   const t = await getTranslations({ locale, namespace: "AboutPage" });
+  const title = t("metaTitle");
+  const description = t("metaDescription");
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
+    title,
+    description,
+    alternates: {
+      canonical: absoluteUrl(locale, "/about"),
+      languages: localeAlternates("/about"),
+    },
+    openGraph: { title, description, url: absoluteUrl(locale, "/about") },
+    twitter: { title, description },
   };
 }
 
