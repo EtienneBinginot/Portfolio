@@ -1,7 +1,19 @@
+import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import pixelButtonStyles from "@/components/PixelButton/PixelButton.module.scss";
 import styles from "./not-found.module.scss";
+
+// Même remarque que ci-dessous pour NotFound() : getTranslations() sans
+// locale explicite résout la locale de la route courante.
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("NotFoundPage");
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    robots: { index: false, follow: false },
+  };
+}
 
 // Le layout [locale] a déjà appelé setRequestLocale(locale) avant de rendre
 // ce segment (notFound() ne court-circuite que le rendu de la page, pas le

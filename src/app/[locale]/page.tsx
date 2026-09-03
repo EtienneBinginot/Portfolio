@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -6,9 +7,35 @@ import pixelButtonStyles from "@/components/PixelButton/PixelButton.module.scss"
 import HighlightTile from "@/components/HighlightTile/HighlightTile";
 import ProjectCard from "@/components/ProjectCard/ProjectCard";
 import ExperienceCard from "@/components/ExperienceCard/ExperienceCard";
+import JsonLd from "@/components/JsonLd/JsonLd";
 import { getData } from "@/lib/data";
 import { routing, type LocaleParams } from "@/i18n/routing";
+import { absoluteUrl, localeAlternates } from "@/lib/site";
 import styles from "./page.module.scss";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: LocaleParams;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    return {};
+  }
+  const t = await getTranslations({ locale, namespace: "HomePage" });
+  const title = t("metaTitle");
+  const description = t("metaDescription");
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: absoluteUrl(locale, ""),
+      languages: localeAlternates(""),
+    },
+    openGraph: { title, description, url: absoluteUrl(locale, "") },
+    twitter: { title, description },
+  };
+}
 
 export default async function Home({ params }: { params: LocaleParams }) {
   const { locale } = await params;
@@ -31,6 +58,17 @@ export default async function Home({ params }: { params: LocaleParams }) {
 
   return (
     <main className={styles.main}>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: data.meta.name,
+          jobTitle: data.meta.role,
+          email: `mailto:${data.meta.email}`,
+          url: absoluteUrl(locale, ""),
+          sameAs: [data.meta.github, data.meta.linkedin],
+        }}
+      />
       <section className={styles.hero}>
         <span className={styles.eyebrow}>{data.meta.lane}</span>
         <h1 className={styles.title}>{data.meta.name}</h1>

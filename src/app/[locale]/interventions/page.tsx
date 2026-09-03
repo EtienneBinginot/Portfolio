@@ -6,6 +6,7 @@ import InterventionsFilter from "@/components/InterventionsFilter/InterventionsF
 import { getData } from "@/lib/data";
 import { CaseScopeSchema, type CaseScope } from "@/lib/schema";
 import { routing, type LocaleParams } from "@/i18n/routing";
+import { absoluteUrl, localeAlternates } from "@/lib/site";
 import styles from "./page.module.scss";
 
 const SCOPES = CaseScopeSchema.options;
@@ -20,10 +21,25 @@ export async function generateMetadata({
   params: LocaleParams;
 }): Promise<Metadata> {
   const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    return {};
+  }
   const t = await getTranslations({ locale, namespace: "InterventionsPage" });
+  const title = t("metaTitle");
+  const description = t("metaDescription");
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
+    title,
+    description,
+    alternates: {
+      canonical: absoluteUrl(locale, "/interventions"),
+      languages: localeAlternates("/interventions"),
+    },
+    openGraph: {
+      title,
+      description,
+      url: absoluteUrl(locale, "/interventions"),
+    },
+    twitter: { title, description },
   };
 }
 

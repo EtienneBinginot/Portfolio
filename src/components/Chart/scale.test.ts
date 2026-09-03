@@ -1,7 +1,13 @@
 // @vitest-environment node
 // Tests purs (maths de mise à l'échelle) : pas besoin du DOM jsdom.
 import { describe, expect, it } from "vitest";
-import { buildScale, describeChart, labelStep, quantize } from "./scale";
+import {
+  buildScale,
+  buildYTicks,
+  describeChart,
+  labelStep,
+  quantize,
+} from "./scale";
 import type { Chart as ChartData } from "@/lib/schema";
 
 describe("quantize", () => {
@@ -56,6 +62,16 @@ describe("buildScale — log", () => {
     const ratioLinear = linear(600) / linear(2);
     const ratioLog = log(600) / log(2);
     expect(ratioLog).toBeLessThan(ratioLinear);
+  });
+});
+
+describe("buildYTicks — linear", () => {
+  it("répartit quatre paliers réguliers entre 0 et domainMax", () => {
+    expect(buildYTicks("linear", 100)).toEqual([0, 25, 50, 75, 100]);
+  });
+
+  it("ne renvoie qu'une seule graduation à 0 quand domainMax vaut 0 (aucune valeur positive dans la série, ex: Root-Me avant tout relevé) — évite les clés React dupliquées", () => {
+    expect(buildYTicks("linear", 0)).toEqual([0]);
   });
 });
 

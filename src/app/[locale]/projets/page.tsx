@@ -5,6 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import ProjectCard from "@/components/ProjectCard/ProjectCard";
 import { getData } from "@/lib/data";
 import { routing, type LocaleParams } from "@/i18n/routing";
+import { absoluteUrl, localeAlternates } from "@/lib/site";
 import { Link } from "@/i18n/navigation";
 import styles from "./page.module.scss";
 
@@ -18,10 +19,21 @@ export async function generateMetadata({
   params: LocaleParams;
 }): Promise<Metadata> {
   const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    return {};
+  }
   const t = await getTranslations({ locale, namespace: "ProjectsPage" });
+  const title = t("metaTitle");
+  const description = t("metaDescription");
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
+    title,
+    description,
+    alternates: {
+      canonical: absoluteUrl(locale, "/projets"),
+      languages: localeAlternates("/projets"),
+    },
+    openGraph: { title, description, url: absoluteUrl(locale, "/projets") },
+    twitter: { title, description },
   };
 }
 

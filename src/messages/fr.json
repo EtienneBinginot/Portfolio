@@ -1,7 +1,9 @@
 {
   "Metadata": {
     "title": "Etienne Binginot — Portfolio",
-    "description": "Site vitrine personnel orienté preuve mesurée."
+    "description": "Site vitrine personnel orienté preuve mesurée.",
+    "titleTemplate": "%s — Etienne Binginot",
+    "ogAlt": "Etienne Binginot — Portfolio"
   },
   "Navbar": {
     "home": "Accueil",
@@ -21,6 +23,8 @@
     "en": "English"
   },
   "HomePage": {
+    "metaTitle": "Etienne Binginot — Portfolio",
+    "metaDescription": "Site vitrine personnel orienté preuve mesurée.",
     "highlightsHeading": "En chiffres",
     "projectsHeading": "Projets",
     "interventionsHeading": "Interventions",
@@ -108,6 +112,8 @@
   "NotFoundPage": {
     "title": "Page introuvable",
     "description": "Cette page n'existe pas ou a été déplacée — vérifiez l'adresse ou repartez de l'accueil.",
-    "homeLabel": "Retour à l'accueil"
+    "homeLabel": "Retour à l'accueil",
+    "metaTitle": "Page introuvable",
+    "metaDescription": "Cette page n'existe pas ou a été déplacée — vérifiez l'adresse ou repartez de l'accueil."
   }
 }

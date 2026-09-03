@@ -22,9 +22,14 @@ export default function Navbar() {
 
   // Fermeture automatique au changement de route : rouvrir le menu à chaque
   // navigation forcerait l'utilisateur à le refermer lui-même à chaque clic.
-  useEffect(() => {
+  // Ajustement pendant le rendu plutôt que dans un effet (voir
+  // https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes)
+  // pour éviter un rendu en cascade — signalé par react-hooks/set-state-in-effect.
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
     setOpen(false);
-  }, [pathname]);
+  }
 
   // Fermeture au clavier (Échap), norme d'accessibilité pour tout panneau
   // qui se superpose au contenu — seulement écouté pendant que le menu est

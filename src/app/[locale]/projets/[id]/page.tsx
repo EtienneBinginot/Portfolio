@@ -5,9 +5,11 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import MetricBlock from "@/components/MetricBlock/MetricBlock";
 import Chart from "@/components/Chart/Chart";
 import PixelBorder from "@/components/PixelBorder/PixelBorder";
+import JsonLd from "@/components/JsonLd/JsonLd";
 import { getData } from "@/lib/data";
 import { getProjectWriteup } from "@/lib/mdx";
 import { routing } from "@/i18n/routing";
+import { absoluteUrl, localeAlternates } from "@/lib/site";
 import { cx } from "@/lib/cx";
 import styles from "./page.module.scss";
 
@@ -39,9 +41,18 @@ export async function generateMetadata({
   if (!project) {
     return {};
   }
+  const title = project.title;
+  const description = project.summary;
+  const path = `/projets/${project.id}`;
   return {
-    title: `${project.title} — Etienne Binginot`,
-    description: project.summary,
+    title,
+    description,
+    alternates: {
+      canonical: absoluteUrl(locale, path),
+      languages: localeAlternates(path),
+    },
+    openGraph: { title, description, url: absoluteUrl(locale, path) },
+    twitter: { title, description },
   };
 }
 
@@ -69,6 +80,17 @@ export default async function ProjectPage({
 
   return (
     <main className={styles.main}>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "CreativeWork",
+          name: project.title,
+          description: project.summary,
+          url: absoluteUrl(locale, `/projets/${project.id}`),
+          author: { "@type": "Person", name: "Etienne Binginot" },
+          keywords: project.stack.join(", "),
+        }}
+      />
       <header className={styles.header}>
         <h1 className={styles.title}>{project.title}</h1>
         <p className={styles.summary}>{project.summary}</p>

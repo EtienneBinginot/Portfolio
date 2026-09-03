@@ -38,6 +38,17 @@ format, lint, test, build, dans cet ordre. La CI GitHub Actions
 (`.github/workflows/ci.yml`) rejoue format:check/lint/test/build sur chaque
 pull request.
 
+## Mise en ligne
+
+Deux choses à faire avant d'ouvrir le site en production, aucune ne
+nécessite de modifier le code :
+
+- définir `NEXT_PUBLIC_SITE_URL` (voir `.env.example`) avec le vrai domaine
+  — alimente `metadataBase`, le sitemap, `robots.txt`, les `hreflang` et le
+  JSON-LD (`src/lib/site.ts`) ;
+- déposer `public/og-image.png` (1200×630) — l'image de partage réseaux
+  sociaux référencée par les métadonnées Open Graph/Twitter.
+
 ## Structure
 
 ```

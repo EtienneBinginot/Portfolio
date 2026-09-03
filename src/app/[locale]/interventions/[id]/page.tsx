@@ -5,8 +5,10 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import MetricBlock from "@/components/MetricBlock/MetricBlock";
 import Chart from "@/components/Chart/Chart";
 import Badge from "@/components/Badge/Badge";
+import JsonLd from "@/components/JsonLd/JsonLd";
 import { getData } from "@/lib/data";
 import { routing } from "@/i18n/routing";
+import { absoluteUrl, localeAlternates } from "@/lib/site";
 import { cx } from "@/lib/cx";
 import styles from "./page.module.scss";
 
@@ -38,9 +40,18 @@ export async function generateMetadata({
   if (!intervention) {
     return {};
   }
+  const title = intervention.title;
+  const description = intervention.context;
+  const path = `/interventions/${intervention.id}`;
   return {
-    title: `${intervention.title} — Etienne Binginot`,
-    description: intervention.context,
+    title,
+    description,
+    alternates: {
+      canonical: absoluteUrl(locale, path),
+      languages: localeAlternates(path),
+    },
+    openGraph: { title, description, url: absoluteUrl(locale, path) },
+    twitter: { title, description },
   };
 }
 
@@ -68,6 +79,16 @@ export default async function InterventionPage({
 
   return (
     <main className={styles.main}>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "CreativeWork",
+          name: intervention.title,
+          description: intervention.context,
+          url: absoluteUrl(locale, `/interventions/${intervention.id}`),
+          author: { "@type": "Person", name: "Etienne Binginot" },
+        }}
+      />
       <header className={styles.header}>
         <Badge>{tScope(intervention.scope)}</Badge>
         <h1 className={styles.title}>{intervention.title}</h1>
