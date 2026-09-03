@@ -31,11 +31,6 @@
 
 .frame {
   height: 100%;
-  // Ombre-bloc de PixelBorder.frame en vert plutôt que le --block-b neutre
-  // par défaut : ces tuiles sont du contenu "preuve chiffrée", même
-  // convention d'accent que .value et les métriques de ProjectCard/
-  // ExperienceCard (voir _colors.scss, accent-green = données).
-  --pixel-shadow-color: var(--accent-green);
 }
 
 .value {
