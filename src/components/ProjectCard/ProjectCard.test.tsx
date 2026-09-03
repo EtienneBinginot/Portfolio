@@ -57,4 +57,17 @@ describe("ProjectCard", () => {
       `/fr/projets/${project.id}`,
     );
   });
+
+  it("en variante row, affiche toujours résultat, titre et stack", () => {
+    render(
+      <NextIntlClientProvider locale="fr" messages={{}}>
+        <ProjectCard project={project} variant="row" />
+      </NextIntlClientProvider>,
+    );
+    expect(screen.getByText("28")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: project.title }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Next.js")).toBeInTheDocument();
+  });
 });

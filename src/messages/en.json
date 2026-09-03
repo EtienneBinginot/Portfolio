@@ -36,7 +36,8 @@
   "ProjectsPage": {
     "metaTitle": "Projects — Etienne Binginot",
     "metaDescription": "Every project write-up, backed by measured proof.",
-    "heading": "Projects"
+    "heading": "Projects",
+    "explorationsLinkLabel": "See my explorations too"
   },
   "ProjectPage": {
     "stackLabel": "Tech stack",
@@ -78,6 +79,17 @@
     "githubLabel": "GitHub",
     "linkedinLabel": "LinkedIn",
     "cvLabel": "Download my CV"
+  },
+  "ExplorationsPage": {
+    "metaTitle": "Explorations — Etienne Binginot",
+    "metaDescription": "Old projects, prototypes and unfinished experiments — what they aimed to learn.",
+    "heading": "Explorations"
+  },
+  "ExplorationPage": {
+    "periodLabel": "Period",
+    "repoLabel": "View repository",
+    "metricsHeading": "Key figures",
+    "chartHeading": "Chart"
   },
   "NotFoundPage": {
     "title": "Page not found",

@@ -88,12 +88,7 @@
 }
 
 .links {
-  font-family: var(--font-pixel), monospace;
-  font-size: var(--fs-sm);
-
   a {
-    color: var(--accent-blue);
-
-    @include t.focus-ring();
+    @include t.pixel-link();
   }
 }

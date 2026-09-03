@@ -1,7 +1,12 @@
 // @vitest-environment node
 // Tests purs (validation Zod) : pas besoin du DOM jsdom.
 import { describe, expect, it } from "vitest";
-import { ChartSchema, DataSchema, MetricSchema } from "./schema";
+import {
+  ChartSchema,
+  DataSchema,
+  ExplorationSchema,
+  MetricSchema,
+} from "./schema";
 import type { Data } from "./schema";
 
 const validMetric = {
@@ -77,6 +82,44 @@ describe("ChartSchema", () => {
   });
 });
 
+const validExploration = {
+  id: "exemple-exploration",
+  title: "Ancien projet d'entraînement",
+  period: "2024",
+  summary: "ce que ça visait à apprendre",
+};
+
+describe("ExplorationSchema", () => {
+  it("accepte une exploration minimale sans metrics ni chart", () => {
+    expect(ExplorationSchema.safeParse(validExploration).success).toBe(true);
+  });
+
+  it("accepte une exploration avec une métrique valide", () => {
+    const result = ExplorationSchema.safeParse({
+      ...validExploration,
+      metrics: [validMetric],
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("accepte une exploration avec un chart valide", () => {
+    const result = ExplorationSchema.safeParse({
+      ...validExploration,
+      chart: validChart,
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("rejette une exploration dont la métrique n'a pas method/measuredAt", () => {
+    const { method: _method, ...incompleteMetric } = validMetric;
+    const result = ExplorationSchema.safeParse({
+      ...validExploration,
+      metrics: [incompleteMetric],
+    });
+    expect(result.success).toBe(false);
+  });
+});
+
 function buildValidData(): Data {
   return {
     meta: {
@@ -125,7 +168,7 @@ function buildValidData(): Data {
     skills: [
       { name: "TypeScript", category: "langage", evidence: "physigames" },
     ],
-    chantiers: [],
+    explorations: [],
     about: { bio: "bio", formation: [], interests: [], cvUrl: "/cv-fr.pdf" },
   };
 }

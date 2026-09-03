@@ -215,9 +215,9 @@
       "evidence": "exemple-intervention"
     }
   ],
-  "chantiers": [
+  "explorations": [
     {
-      "id": "exemple-chantier",
+      "id": "exemple-exploration",
       "title": "[placeholder] Former training project",
       "period": "2024",
       "summary": "[placeholder] what it was meant to teach.",

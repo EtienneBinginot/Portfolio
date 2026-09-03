@@ -102,6 +102,17 @@
 // l'appelant de nommer sa propre classe d'état actif (ex. ".active").
 // La police et sa taille restent à la charge de l'appelant (Navbar et
 // LanguageSwitcher n'utilisent pas la même police).
+// Lien de texte secondaire (dépôt, contact, passerelle vers une autre page) :
+// police pixel, accent bleu, focus-ring. À inclure directement sur le
+// sélecteur du <a> (ou sur `a` imbriqué dans un conteneur de liens).
+@mixin pixel-link {
+  font-family: var(--font-pixel), monospace;
+  font-size: var(--fs-sm);
+  color: var(--accent-blue);
+
+  @include focus-ring();
+}
+
 @mixin nav-link($active-class) {
   text-decoration: none;
   color: var(--text-muted);

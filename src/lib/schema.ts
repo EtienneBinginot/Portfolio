@@ -8,9 +8,9 @@ import { z } from "zod";
 //      méthode est une affirmation ; avec méthode, c'est une mesure.
 //   2. `skills[].evidence` doit pointer vers un id de projet ou de cas
 //      existant. Une compétence sans preuve liée n'a pas sa place.
-// Ces deux règles s'appliquent à `projects` et `cases`, pas à `chantiers` :
-// les chantiers racontent une progression, ils ne prouvent rien par des
-// chiffres.
+// Ces deux règles s'appliquent à `projects` et `cases`, pas à
+// `explorations` : les explorations racontent une progression, elles ne
+// prouvent rien par des chiffres.
 
 export const MetricSchema = z.object({
   label: z.string().min(1),
@@ -126,12 +126,14 @@ export const SkillSchema = z.object({
     .min(1, "evidence obligatoire : id d'un projet ou d'un cas"),
 });
 
-export const ChantierSchema = z.object({
+export const ExplorationSchema = z.object({
   id: z.string().min(1),
   title: z.string().min(1),
   period: z.string(),
   summary: z.string(),
   repo: z.string().url().optional(),
+  metrics: z.array(MetricSchema).optional(),
+  chart: ChartSchema.optional(),
 });
 
 export const FormationEntrySchema = z.object({
@@ -153,7 +155,7 @@ export const DataSchema = z
     projects: z.array(ProjectSchema),
     cases: z.array(CaseSchema),
     skills: z.array(SkillSchema),
-    chantiers: z.array(ChantierSchema),
+    explorations: z.array(ExplorationSchema),
     about: AboutSchema,
   })
   .superRefine((root, ctx) => {
@@ -193,6 +195,6 @@ export type Project = z.infer<typeof ProjectSchema>;
 export type Case = z.infer<typeof CaseSchema>;
 export type CaseScope = z.infer<typeof CaseScopeSchema>;
 export type Skill = z.infer<typeof SkillSchema>;
-export type Chantier = z.infer<typeof ChantierSchema>;
+export type Exploration = z.infer<typeof ExplorationSchema>;
 export type FormationEntry = z.infer<typeof FormationEntrySchema>;
 export type About = z.infer<typeof AboutSchema>;
