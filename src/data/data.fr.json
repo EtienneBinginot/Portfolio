@@ -226,7 +226,17 @@
   ],
   "about": {
     "bio": "[placeholder] parcours à rédiger en Phase 0.",
-    "formation": ["[placeholder]"],
-    "interests": ["[placeholder]"]
+    "formation": [
+      {
+        "period": "[placeholder]",
+        "label": "[placeholder] intitulé de formation"
+      },
+      {
+        "period": "[placeholder]",
+        "label": "[placeholder] intitulé de formation"
+      }
+    ],
+    "interests": ["[placeholder]"],
+    "cvUrl": "/cv-fr.pdf"
   }
 }

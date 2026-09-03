@@ -126,7 +126,7 @@ function buildValidData(): Data {
       { name: "TypeScript", category: "langage", evidence: "physigames" },
     ],
     chantiers: [],
-    about: { bio: "bio", formation: [], interests: [] },
+    about: { bio: "bio", formation: [], interests: [], cvUrl: "/cv-fr.pdf" },
   };
 }
 
