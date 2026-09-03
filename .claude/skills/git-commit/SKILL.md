@@ -24,18 +24,18 @@ scope, and message — never guess from the task description alone.
 ## Commit Types
 
 | Type       | Purpose                        |
-| ---------- | ------------------------------- |
+| ---------- | ------------------------------ |
 | `feat`     | New feature                    |
 | `fix`      | Bug fix                        |
-| `docs`     | Documentation only              |
-| `style`    | Formatting/style (no logic)     |
-| `refactor` | Code refactor (no feature/fix)  |
-| `perf`     | Performance improvement         |
-| `test`     | Add/update tests                |
-| `build`    | Build system/dependencies       |
-| `ci`       | CI/config changes               |
-| `chore`    | Maintenance/misc                |
-| `revert`   | Revert commit                   |
+| `docs`     | Documentation only             |
+| `style`    | Formatting/style (no logic)    |
+| `refactor` | Code refactor (no feature/fix) |
+| `perf`     | Performance improvement        |
+| `test`     | Add/update tests               |
+| `build`    | Build system/dependencies      |
+| `ci`       | CI/config changes              |
+| `chore`    | Maintenance/misc               |
+| `revert`   | Revert commit                  |
 
 Suggested scopes for this repo: the area touched — `components`, `mdx`,
 `i18n`, `styles`, `data` (schema/content in `src/data`), `ci`. Omit the scope
@@ -100,7 +100,7 @@ Analyze the diff to determine:
 - **Scope**: What area of the repo is affected?
 - **Description**: One-line summary of what changed (present tense,
   imperative mood, <72 chars)
-- **Body** (for a non-trivial change): explain *why* the change was made —
+- **Body** (for a non-trivial change): explain _why_ the change was made —
   the constraint, the root cause, what was tried and discarded — not a
   restatement of the diff. Same "why, not what" standard as code comments in
   this repo (see AGENTS.md).
