@@ -226,7 +226,17 @@
   ],
   "about": {
     "bio": "[placeholder] background to write in Phase 0.",
-    "formation": ["[placeholder]"],
-    "interests": ["[placeholder]"]
+    "formation": [
+      {
+        "period": "[placeholder]",
+        "label": "[placeholder] education/training entry"
+      },
+      {
+        "period": "[placeholder]",
+        "label": "[placeholder] education/training entry"
+      }
+    ],
+    "interests": ["[placeholder]"],
+    "cvUrl": "/cv-en.pdf"
   }
 }

@@ -134,10 +134,16 @@ export const ChantierSchema = z.object({
   repo: z.string().url().optional(),
 });
 
+export const FormationEntrySchema = z.object({
+  period: z.string().min(1),
+  label: z.string().min(1),
+});
+
 export const AboutSchema = z.object({
   bio: z.string(),
-  formation: z.array(z.string()),
+  formation: z.array(FormationEntrySchema),
   interests: z.array(z.string()),
+  cvUrl: z.string().min(1),
 });
 
 export const DataSchema = z
@@ -188,3 +194,5 @@ export type Case = z.infer<typeof CaseSchema>;
 export type CaseScope = z.infer<typeof CaseScopeSchema>;
 export type Skill = z.infer<typeof SkillSchema>;
 export type Chantier = z.infer<typeof ChantierSchema>;
+export type FormationEntry = z.infer<typeof FormationEntrySchema>;
+export type About = z.infer<typeof AboutSchema>;

@@ -67,6 +67,18 @@
     "chartHeading": "Graphique",
     "retrospectiveHeading": "Rétrospective"
   },
+  "AboutPage": {
+    "metaTitle": "À propos — Etienne Binginot",
+    "metaDescription": "Parcours, formation, centres d'intérêt et contact.",
+    "heading": "À propos",
+    "formationHeading": "Parcours et formation",
+    "interestsHeading": "Centres d'intérêt",
+    "contactHeading": "Contact et liens",
+    "emailLabel": "Email",
+    "githubLabel": "GitHub",
+    "linkedinLabel": "LinkedIn",
+    "cvLabel": "Télécharger mon CV"
+  },
   "NotFoundPage": {
     "title": "Page introuvable",
     "description": "Cette page n'existe pas ou a été déplacée — vérifiez l'adresse ou repartez de l'accueil.",

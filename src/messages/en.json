@@ -67,6 +67,18 @@
     "chartHeading": "Chart",
     "retrospectiveHeading": "Retrospective"
   },
+  "AboutPage": {
+    "metaTitle": "About — Etienne Binginot",
+    "metaDescription": "Background, education, interests, and contact.",
+    "heading": "About",
+    "formationHeading": "Career & education",
+    "interestsHeading": "Interests",
+    "contactHeading": "Contact & links",
+    "emailLabel": "Email",
+    "githubLabel": "GitHub",
+    "linkedinLabel": "LinkedIn",
+    "cvLabel": "Download my CV"
+  },
   "NotFoundPage": {
     "title": "Page not found",
     "description": "This page doesn't exist or has moved — check the address or head back home.",

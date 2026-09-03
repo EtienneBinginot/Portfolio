@@ -1,4 +1,5 @@
 import { getFormatter, getLocale, getTranslations } from "next-intl/server";
+import ContactLinks from "@/components/ContactLinks/ContactLinks";
 import styles from "./Footer.module.scss";
 import { getData } from "@/lib/data";
 import type { Locale } from "@/i18n/routing";
@@ -23,21 +24,15 @@ export default async function Footer() {
         <span>
           {data.meta.name} — {data.meta.role}
         </span>
-        <ul className={styles.links}>
-          <li>
-            <a href={`mailto:${data.meta.email}`}>{t("contact")}</a>
-          </li>
-          <li>
-            <a href={data.meta.github} target="_blank" rel="noreferrer">
-              GitHub
-            </a>
-          </li>
-          <li>
-            <a href={data.meta.linkedin} target="_blank" rel="noreferrer">
-              LinkedIn
-            </a>
-          </li>
-        </ul>
+        <ContactLinks
+          className={styles.links}
+          email={data.meta.email}
+          github={data.meta.github}
+          linkedin={data.meta.linkedin}
+          emailLabel={t("contact")}
+          githubLabel="GitHub"
+          linkedinLabel="LinkedIn"
+        />
         <span className={styles.meta}>
           {t("lastUpdated", { date: lastUpdated })}
         </span>
