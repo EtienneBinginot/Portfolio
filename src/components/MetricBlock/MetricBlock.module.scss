@@ -16,11 +16,17 @@
   margin: 0;
 }
 
+// Chiffre mesuré = "tampon" pixel : fond accent-vert plein, texte encre pour
+// le contraste — la couleur vive porte l'information (donnée mesurée), pas
+// le décor.
 .value {
+  display: inline-block;
   font-family: var(--font-mono), monospace;
   font-variant-numeric: tabular-nums;
   font-size: var(--fs-xl);
-  color: var(--accent-green);
+  color: var(--ink);
+  background: var(--accent-green);
+  padding: 0 var(--space-2);
   margin: var(--space-2) 0 0;
 }
 
@@ -52,11 +58,16 @@
   vertical-align: middle;
 }
 
+// Même recette que .value ci-dessus, réduite d'un cran pour rester lisible
+// comme un petit tampon inline plutôt qu'un second cadre dans .inlineChip.
 .inlineValue {
+  display: inline-block;
   font-family: var(--font-mono), monospace;
   font-variant-numeric: tabular-nums;
   font-size: var(--fs-md);
-  color: var(--accent-green);
+  color: var(--ink);
+  background: var(--accent-green);
+  padding: 0 var(--space-1);
 }
 
 .inlineLabel {

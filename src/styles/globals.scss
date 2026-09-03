@@ -16,6 +16,8 @@
   --accent-green: #{t.$accent-green};
   --accent-blue: #{t.$accent-blue};
   --accent-cyan: #{t.$accent-cyan};
+  --block-a: #{t.$block-a};
+  --block-b: #{t.$block-b};
 
   // Espacements — grille 4/8px
   --space-1: #{t.$space-1};
@@ -59,6 +61,8 @@
   // défaut, une exception en easing). Neutralisées globalement par le bloc
   // prefers-reduced-motion ci-dessous.
   --motion-duration-base: #{t.$motion-duration-base};
+  --motion-duration-ambient: #{t.$motion-duration-ambient};
+  --parallax-max: #{t.$parallax-max};
 }
 
 // -----------------------------------------------------------------------

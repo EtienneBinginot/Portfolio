@@ -101,7 +101,7 @@ export default async function CompetencesPage({
 
           {rootMe.writeups.length > 0 && (
             <div className={styles.writeups}>
-              <h3 className={styles.sectionTitle}>
+              <h3 className={styles.subsectionTitle}>
                 {t("rootMeWriteupsHeading")}
               </h3>
               <ul className={styles.writeupsList}>

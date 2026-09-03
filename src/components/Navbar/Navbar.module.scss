@@ -1,8 +1,15 @@
 @use "@/styles/tokens" as t;
 
+// Bord bas en deux tons : le filet ink existant reste au ras du bloc, une
+// bande bleue (zone nav, voir doctrine d'accent) posée juste au-dessus via un
+// box-shadow inset — donc entièrement contenue dans la boîte du header,
+// jamais de débordement sur le contenu qui suit (évite le souci d'ordre de
+// peinture d'un box-shadow non-inset sur un élément en flux normal).
 .nav {
   border-bottom: var(--border-width) solid var(--ink);
   background: var(--surface);
+  box-shadow: inset 0 calc(-1 * var(--border-width-thick)) 0 0
+    var(--accent-blue);
 }
 
 .inner {
@@ -17,11 +24,21 @@
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   font-family: var(--font-pixel), monospace;
   font-size: var(--fs-sm);
   color: var(--text);
   text-decoration: none;
   letter-spacing: 0.02em;
+
+  // Petit marqueur bloc à côté du wordmark plutôt qu'un logo — chrome
+  // discret, pas un second hero. Accent bleu (zone nav).
+  &::before {
+    display: inline-block;
+    @include t.block-marker(var(--accent-blue));
+  }
 
   @include t.focus-ring();
 }
@@ -36,6 +53,18 @@
   font-family: var(--font-pixel), monospace;
   font-size: var(--fs-xs);
   padding: var(--space-2) var(--space-3);
+  @include t.stepped(background-color, base, 2);
+
+  &:hover {
+    background: var(--block-a);
+  }
+
+  // État ouvert : traitement bloc plus marqué (pas d'animation d'ouverture,
+  // le panneau bascule toujours en display dur — voir .linksOpen).
+  &[aria-expanded="true"] {
+    background: var(--accent-blue);
+    color: var(--ink);
+  }
 
   @include t.focus-ring();
 
@@ -69,6 +98,10 @@
 .linksOpen {
   @media (max-width: t.$bp-sm) {
     display: flex;
+    padding-top: var(--space-3);
+    border-top: var(--border-width) solid var(--ink);
+    // Écho du bord du header : même motif filet ink + bande bleue en inset.
+    box-shadow: inset 0 var(--border-width-thick) 0 0 var(--accent-blue);
   }
 }
 

@@ -9,11 +9,25 @@
   gap: var(--space-8);
 }
 
+// Marqueur bloc signature à côté du titre de page — écho du marqueur de
+// wordmark Navbar (même gabarit space-2 x space-4), accent bleu : cette page
+// est une zone de navigation/liste, cohérent avec la doctrine "un accent par
+// zone". display: flex plutôt qu'inline-flex : "Projets" est un mot court
+// qui ne wrap jamais, mais le heading reste un bloc pleine largeur dans la
+// colonne de .main (inline-flex le retrécirait à son contenu).
 .heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
   font-family: var(--font-pixel), monospace;
   font-size: clamp(var(--fs-xl), 6vw + 1rem, var(--fs-2xl));
   margin: 0;
   color: var(--text);
+
+  &::before {
+    flex-shrink: 0;
+    @include t.block-marker(var(--accent-blue));
+  }
 }
 
 .list {
@@ -22,7 +36,16 @@
   gap: var(--space-4);
 }
 
+// Zone distincte en pied de liste : même motif de rail que Navbar/Footer
+// (filet ink + bande d'accent en inset), mais en cyan — seul accent rare de
+// la page, réservé à cette passerelle secondaire vers les explorations
+// plutôt que dupliqué sur le bleu déjà posé sur le heading.
 .explorationsLink {
+  margin: 0;
+  padding-top: var(--space-4);
+  border-top: var(--border-width) solid var(--ink);
+  box-shadow: inset 0 var(--border-width-thick) 0 0 var(--accent-cyan);
+
   a {
     @include t.pixel-link();
   }

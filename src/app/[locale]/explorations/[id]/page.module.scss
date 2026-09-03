@@ -15,13 +15,29 @@
   gap: var(--space-4);
 }
 
+// Même marqueur que le heading de la liste (recette "wayfinding" : fond
+// neutre + ombre-bloc colorée), align-items flex-start plutôt que center
+// pour rester calé sur la première ligne quand le titre passe sur 2 lignes.
 .title {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--space-3);
   font-family: var(--font-pixel), monospace;
   font-size: clamp(var(--fs-xl), 6vw + 1rem, var(--fs-2xl));
   line-height: var(--lh-tight);
   margin: 0;
   color: var(--text);
   overflow-wrap: break-word;
+
+  &::before {
+    flex: none;
+    margin-top: var(--space-1);
+    @include t.block-marker(
+      var(--accent-green),
+      var(--space-4),
+      var(--space-4)
+    );
+  }
 }
 
 .period {
@@ -59,11 +75,24 @@
   gap: var(--space-4);
 }
 
+// Même logique de marqueur que .title, mais la couleur du bloc suit la
+// variante posée par section-title-variants (récit = neutre, preuve
+// chiffrée = vert) au lieu d'être fixe : les deux règles ::before ci-dessous
+// se posent après l'include, sans toucher au mixin partagé avec les fiches
+// projet/intervention.
 .sectionTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
   font-family: var(--font-pixel), monospace;
   font-size: var(--fs-lg);
   margin: 0;
   color: var(--text);
+
+  &::before {
+    flex: none;
+    @include t.block-marker(currentColor, var(--space-3), var(--space-3));
+  }
 }
 
 @include t.section-title-variants();

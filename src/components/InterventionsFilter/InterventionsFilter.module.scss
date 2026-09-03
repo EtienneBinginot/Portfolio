@@ -1,8 +1,17 @@
+// Rail bas en deux tons, même motif que le bord du header (Navbar.module.scss)
+// : filet ink + bande accent bleue en inset. Rattache visuellement le filtre
+// à la grille qui suit — les deux lisent comme une seule zone "résultats
+// filtrables" plutôt que deux blocs disjoints. Un seul cluster (le rail),
+// pas de bloc-ombre en plus sur les Badges eux-mêmes (déjà traités).
 .filterBar {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
+  padding-bottom: var(--space-4);
   margin-bottom: var(--space-6);
+  border-bottom: var(--border-width) solid var(--ink);
+  box-shadow: inset 0 calc(-1 * var(--border-width-thick)) 0 0
+    var(--accent-blue);
 }
 
 .cardGrid {

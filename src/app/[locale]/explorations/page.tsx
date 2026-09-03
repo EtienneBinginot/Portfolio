@@ -57,7 +57,10 @@ export default async function ExplorationsPage({
 
   return (
     <main className={styles.main}>
-      <h1 className={styles.heading}>{t("heading")}</h1>
+      <header className={styles.header}>
+        <h1 className={styles.heading}>{t("heading")}</h1>
+        <p className={styles.intro}>{t("intro")}</p>
+      </header>
       <div className={styles.list}>
         {data.explorations.map((exploration) => (
           <ExplorationEntry key={exploration.id} exploration={exploration} />

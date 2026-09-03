@@ -10,20 +10,35 @@
 }
 
 // --- Hero -------------------------------------------------------------
+// Zone signature du site (première chose vue) : seule section à porter
+// l'accent cyan (rare, voir _colors.scss) sur ses propres blocs — le
+// PixelField cyan posé dans page.tsx partage la même logique de couleur.
 .hero {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+  position: relative;
 }
 
+// Étiquette "lane" en tag plein (plutôt qu'un simple texte coloré) : un
+// petit bloc qui claque au-dessus du nom, premier accent de bloc que le
+// visiteur croise sur la page.
 .eyebrow {
+  align-self: flex-start;
+  display: inline-block;
   font-family: var(--font-pixel), monospace;
   font-size: var(--fs-xs);
-  color: var(--accent-cyan);
+  color: var(--ink);
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  background: var(--accent-cyan);
+  border: var(--border-width) solid var(--ink);
+  padding: var(--space-1) var(--space-2);
 }
 
+// Marqueur pixel vertical à côté du nom (pas derrière : le texte reste sur
+// fond plein, jamais recouvert) — le traitement le plus marqué du site,
+// réservé à ce point d'entrée unique.
 .title {
   font-family: var(--font-pixel), monospace;
   // Fluide entre fs-xl (mobile) et fs-2xl (desktop) : une pixel font en
@@ -34,6 +49,21 @@
   margin: 0;
   color: var(--text);
   overflow-wrap: break-word;
+  position: relative;
+  padding-left: var(--space-8);
+
+  // Gabarit unique (hauteur pilotée par top/bottom, pas par le token h de
+  // block-marker) : ne passe pas par le mixin partagé, contrairement aux
+  // autres marqueurs de titre de la page.
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.1em;
+    bottom: 0.1em;
+    width: var(--space-4);
+    background: var(--accent-cyan);
+  }
 }
 
 .tagline {
@@ -53,11 +83,29 @@
   gap: var(--space-6);
 }
 
+// Traitement "titre avec marqueur pixel" (signature du rework) : un petit
+// bloc plein avant le texte plutôt qu'un heading nu. Bleu par défaut (zone
+// générique/portfolio) ; .sectionTitleData bascule sur l'accent vert pour la
+// zone preuve chiffrée ("En chiffres") — un seul accent par zone, jamais les
+// deux en même temps sur un même titre.
 .sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
   font-family: var(--font-pixel), monospace;
   font-size: var(--fs-lg);
   margin: 0;
   color: var(--text);
+
+  &::before {
+    display: block;
+    flex-shrink: 0;
+    @include t.block-marker(var(--accent-blue), var(--space-4), var(--space-4));
+  }
+}
+
+.sectionTitleData::before {
+  background: var(--accent-green);
 }
 
 // --- Panneau de chiffres agrégés ------------------------------------------

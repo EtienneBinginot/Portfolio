@@ -2,7 +2,10 @@
 
 .list {
   display: flex;
-  gap: var(--space-2);
+  // space-3 (au lieu de space-2) : les liens sont désormais des tas pixel
+  // paddés (voir nav-link() dans _mixins.scss), un peu plus de respiration
+  // évite que l'ombre-bloc de l'état actif ne frôle le lien voisin.
+  gap: var(--space-3);
   list-style: none;
   margin: 0;
   padding: 0;

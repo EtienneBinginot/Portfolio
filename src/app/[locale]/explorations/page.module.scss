@@ -1,3 +1,5 @@
+@use "@/styles/tokens" as t;
+
 .main {
   max-width: var(--content-max-width);
   margin: 0 auto;
@@ -7,11 +9,44 @@
   gap: var(--space-8);
 }
 
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+// Marqueur de titre de page : petit bloc décoratif à gauche du heading,
+// même recette que .nav-link au repos (fond neutre --block-a, ombre-bloc
+// colorée en premier plan) plutôt que la recette "tampon" de MetricBlock —
+// ici c'est un repère de wayfinding, pas une donnée mesurée. Vert = identité
+// de la page (contenu preuve/expérimentation, cohérent avec l'accent déjà
+// posé sur les valeurs de MetricBlock plus bas dans la hiérarchie).
 .heading {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
   font-family: var(--font-pixel), monospace;
   font-size: clamp(var(--fs-xl), 6vw + 1rem, var(--fs-2xl));
   margin: 0;
   color: var(--text);
+
+  &::before {
+    flex: none;
+    @include t.block-marker(
+      var(--accent-green),
+      var(--space-4),
+      var(--space-4)
+    );
+  }
+}
+
+.intro {
+  font-family: var(--font-read), sans-serif;
+  font-size: var(--fs-md);
+  line-height: var(--lh-relaxed);
+  color: var(--text-muted);
+  max-width: var(--prose-measure);
+  margin: 0;
 }
 
 .list {

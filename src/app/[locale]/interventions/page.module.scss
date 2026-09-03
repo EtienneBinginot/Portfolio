@@ -9,9 +9,19 @@
   gap: var(--space-8);
 }
 
+// Même marqueur signature que la page Projets (voir projets/page.module.scss)
+// pour que les deux pages liste lisent comme une paire cohérente.
 .heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
   font-family: var(--font-pixel), monospace;
   font-size: clamp(var(--fs-xl), 6vw + 1rem, var(--fs-2xl));
   margin: 0;
   color: var(--text);
+
+  &::before {
+    flex-shrink: 0;
+    @include t.block-marker(var(--accent-blue));
+  }
 }

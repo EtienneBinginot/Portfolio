@@ -35,9 +35,25 @@
   font-variant-numeric: tabular-nums;
 }
 
+// Voir ProjectCard.module.scss : même marqueur de "preuve chiffrée" avant le
+// résultat mesuré, cohérence entre les deux variantes de carte.
 .resultValue {
+  position: relative;
+  padding-left: var(--space-4);
   font-size: var(--fs-lg);
   color: var(--accent-green);
+
+  &::before {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    @include t.block-marker(
+      var(--accent-green),
+      var(--space-2),
+      var(--space-2)
+    );
+  }
 }
 
 .resultUnit {

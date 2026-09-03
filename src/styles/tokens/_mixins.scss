@@ -60,6 +60,57 @@
     inset $size 0 0 0 $top-color;
 }
 
+// Ombre-bloc pixel dure (jamais de blur), calée sur la grille 4/8px : le
+// pendant "élargi et coloré" de two-tone-relief. Stage 2 (PixelBorder/
+// PixelButton) l'étend aussi aux boutons — two-tone-relief garde son rôle de
+// filet de bevel fin, pixel-block-shadow devient le bloc décalé qui se
+// déplace/s'effondre au survol/actif.
+//
+// ATTENTION clip-path : un box-shadow décalé qui déborde de la boîte de
+// l'élément qui le porte est clippé par le clip-path DE CE MÊME élément
+// (vérifié empiriquement — filter: drop-shadow() subit exactement le même
+// sort, ce n'est pas une échappatoire). Un élément staircase-corners()
+// (PixelButton) ne doit donc jamais porter à la fois le clip-path et ce
+// mixin sur lui-même : réserver le clip-path à un pseudo-élément/enfant
+// "face" dédié (voir PixelButton.module.scss ::before), et poser
+// pixel-block-shadow sur l'hôte non clippé. PixelBorder suit le même
+// principe via son duo .frame (non clippé, porte l'ombre)/.card (clippé,
+// porte le fond). Sur un élément qui n'a jamais de clip-path (nav-link,
+// Badge), s'utilise directement sans restructuration.
+//
+// Empile deux décalages plats : un bloc de couleur $color en premier plan,
+// et un second bloc $depth-color légèrement plus loin pour un effet de bloc
+// épais "en escalier" — jamais de flou, juste des décalages nets.
+@mixin pixel-block-shadow(
+  $color: c.$accent-cyan,
+  $offset: b.$stair-size,
+  $depth: b.$border-width-thick,
+  $depth-color: c.$ink
+) {
+  box-shadow:
+    $offset $offset 0 0 $color,
+    ($offset + $depth) ($offset + $depth) 0 0 $depth-color;
+}
+
+// Marqueur bloc devant un titre ("quelques petits carrés à quelques
+// endroits", pas un effet répété partout) : un petit pavé plein, sans ombre
+// — réutilisé par les titres de page/section plutôt que copié à la main
+// dans chaque page.module.scss (wordmark du Navbar compris). Ne pose que le
+// contenu du pseudo-élément (taille/couleur) — la mise en page
+// (inline-flex+gap pour un titre court, position:absolute+padding pour un
+// titre qui peut wrapper sur plusieurs lignes) reste à la charge de
+// l'appelant, car elle varie réellement selon le contexte.
+@mixin block-marker(
+  $bg: c.$accent-blue,
+  $w: var(--space-2),
+  $h: var(--space-4)
+) {
+  content: "";
+  width: $w;
+  height: $h;
+  background: $bg;
+}
+
 // Anneau de focus clavier cohérent avec la palette (au lieu du bleu par
 // défaut du navigateur, qui jure avec forêt/lagon). À poser sur tout élément
 // interactif — bouton, lien de nav, lien de pied de page.
@@ -113,20 +164,31 @@
   @include focus-ring();
 }
 
+// Lien de nav qui claque au survol : un tas de couleur plat, jamais de
+// soulignement animé ni d'ombre — cohérent avec l'interdiction de
+// dithering/flou sur l'interactif. Padding constant dès le repos (jamais
+// ajouté seulement au hover) pour qu'aucun état ne déplace le layout —
+// seules couleur/fond changent, en steps() (jamais de fondu).
 @mixin nav-link($active-class) {
+  position: relative;
+  display: inline-block;
   text-decoration: none;
   color: var(--text-muted);
-  padding-bottom: var(--space-1);
-  border-bottom: var(--border-width) solid transparent;
+  padding: var(--space-1) var(--space-2);
+  border-bottom: b.$border-width-thick solid transparent;
+  @include stepped(background-color, base, 2);
 
   &:hover {
     color: var(--text);
+    background: var(--block-a);
+    border-bottom-color: var(--accent-blue);
   }
 
   @include focus-ring();
 
   &#{$active-class} {
-    color: var(--accent-cyan);
+    color: var(--ink);
+    background: var(--accent-cyan);
     border-bottom-color: var(--accent-cyan);
   }
 }
