@@ -68,6 +68,11 @@ export function buildYTicks(
     }
     return ticks;
   }
+  // domainMax à 0 (aucune valeur positive dans la série, ex: Root-Me avant
+  // tout relevé) : une grille à quatre paliers dégénérerait en cinq
+  // graduations à 0 (clés React dupliquées) — une seule graduation à 0
+  // suffit à représenter l'absence de données.
+  if (domainMax === 0) return [0];
   return [0, domainMax / 4, domainMax / 2, (domainMax * 3) / 4, domainMax];
 }
 

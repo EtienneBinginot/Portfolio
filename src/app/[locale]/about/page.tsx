@@ -68,8 +68,12 @@ export default async function AboutPage({ params }: { params: LocaleParams }) {
           {t("formationHeading")}
         </h2>
         <ul className={styles.formationList}>
-          {data.about.formation.map((entry) => (
-            <li key={`${entry.period}-${entry.label}`}>
+          {data.about.formation.map((entry, index) => (
+            // Liste statique issue de data.json, jamais réordonnée/filtrée à
+            // l'exécution : l'index est une clé stable. `period`+`label` ne
+            // suffit pas, deux entrées peuvent être identiques (ex: données
+            // placeholder du Phase 0 avant rédaction du contenu réel).
+            <li key={index}>
               <span className={styles.formationPeriod}>{entry.period}</span>
               <span className={styles.formationLabel}>{entry.label}</span>
             </li>
