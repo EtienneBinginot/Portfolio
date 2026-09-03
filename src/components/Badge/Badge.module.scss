@@ -8,10 +8,22 @@
   font-size: var(--fs-xs);
   text-transform: uppercase;
   letter-spacing: 0.06em;
+  text-decoration: none;
   color: var(--ink);
   background: var(--accent-blue);
   border: var(--border-width) solid var(--ink);
   padding: var(--space-1) var(--space-2);
+}
+
+// Variante lien (compétence → preuve) : même relief au survol que le bouton
+// de filtre, sans les sémantiques aria-pressed qui ne s'appliquent qu'aux
+// contrôles interactifs de filtre.
+a.badge {
+  @include t.focus-ring();
+
+  &:hover {
+    background: var(--accent-cyan);
+  }
 }
 
 // Variante bouton (filtre) : la couleur d'accent reste réservée à l'état

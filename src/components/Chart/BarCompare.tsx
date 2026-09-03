@@ -19,6 +19,7 @@ import {
   yPosition,
 } from "./scale";
 import YAxis from "./YAxis";
+import Legend from "./Legend";
 import styles from "./Chart.module.scss";
 
 const BAR_COLORS = [
@@ -40,27 +41,14 @@ export default function BarCompare({ chart }: BarCompareProps) {
   const pointCount = chart.series[0]?.points.length ?? 0;
   const barWidth = computeBarWidth(clusterWidth, pointCount, BAR_GAP);
 
-  const legendLabels = chart.series[0]?.points.map((p) => p.label) ?? [];
+  const legendItems = (chart.series[0]?.points ?? []).map((point, index) => ({
+    label: point.label,
+    color: BAR_COLORS[index % BAR_COLORS.length],
+  }));
 
   return (
     <>
-      {legendLabels.length > 0 && (
-        <ul className={styles.legend}>
-          {legendLabels.map((label, index) => (
-            <li key={label} className={styles.legendItem}>
-              <span
-                className={styles.swatch}
-                style={
-                  {
-                    "--swatch-color": BAR_COLORS[index % BAR_COLORS.length],
-                  } as React.CSSProperties
-                }
-              />
-              <span className={styles.legendLabel}>{label}</span>
-            </li>
-          ))}
-        </ul>
-      )}
+      <Legend items={legendItems} />
       <svg
         className={styles.svg}
         viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}

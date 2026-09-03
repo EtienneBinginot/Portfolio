@@ -238,5 +238,28 @@
     ],
     "interests": ["[placeholder]"],
     "cvUrl": "/cv-en.pdf"
+  },
+  "rootMe": {
+    "profileUrl": "https://www.root-me.org/[placeholder]",
+    "recordedAt": "2026-09-01",
+    "distribution": {
+      "type": "distribution",
+      "title": "[placeholder] validated challenges by category",
+      "unit": "challenges",
+      "caption": "Source: public Root-Me profile — recorded on 2026-09-01",
+      "source": "Root-Me",
+      "series": [
+        {
+          "name": "categories",
+          "points": [
+            { "label": "Web - Client", "value": 0, "highlight": true },
+            { "label": "Web - Server", "value": 0, "highlight": true },
+            { "label": "Cryptanalysis", "value": 0 },
+            { "label": "Network", "value": 0 }
+          ]
+        }
+      ]
+    },
+    "writeups": []
   }
 }

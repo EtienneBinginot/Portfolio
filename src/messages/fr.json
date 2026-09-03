@@ -7,6 +7,7 @@
     "home": "Accueil",
     "projects": "Projets",
     "interventions": "Interventions",
+    "skills": "Compétences",
     "about": "À propos",
     "menuToggle": "Menu"
   },
@@ -67,6 +68,19 @@
     "resultHeading": "Résultat mesuré",
     "chartHeading": "Graphique",
     "retrospectiveHeading": "Rétrospective"
+  },
+  "CompetencesPage": {
+    "metaTitle": "Compétences — Etienne Binginot",
+    "metaDescription": "Compétences reliées à leur preuve, et profil Root-Me.",
+    "heading": "Compétences",
+    "skillsHeading": "Compétences prouvées",
+    "rootMeHeading": "Root-Me",
+    "rootMeHighlightLabel": "Web Client & Web Server",
+    "rootMeOtherLabel": "Autres catégories",
+    "rootMeRecordedAt": "Relevé du {date}",
+    "rootMeProfileLabel": "Profil public Root-Me — seule source vérifiable",
+    "rootMeNoWriteups": "Le règlement de Root-Me interdit la publication des write-ups : le détail des résolutions ne peut donc pas être partagé ici.",
+    "rootMeWriteupsHeading": "Articles liés"
   },
   "AboutPage": {
     "metaTitle": "À propos — Etienne Binginot",

@@ -33,6 +33,9 @@ export const MetricSchema = z.object({
 export const ChartPointSchema = z.object({
   label: z.string(),
   value: z.number(),
+  // Met en évidence ce point (couleur d'accent dédiée) sans introduire de
+  // système de couleur par catégorie — voir Distribution.tsx.
+  highlight: z.boolean().optional(),
 });
 
 export const ChartSeriesSchema = z.object({
@@ -141,12 +144,54 @@ export const FormationEntrySchema = z.object({
   label: z.string().min(1),
 });
 
+export const RootMeWriteupSchema = z.object({
+  title: z.string().min(1),
+  href: z.string().url(),
+});
+
+// Bloc Root-Me (page Compétences) : le règlement de la plateforme interdit
+// la publication des write-ups, donc la seule preuve montrable est le
+// relevé du profil public, daté — d'où `profileUrl` et `recordedAt`
+// obligatoires. `timeseries` reste optionnel : l'historique des points
+// n'est pas toujours récupérable.
+export const RootMeSchema = z.object({
+  profileUrl: z.string().url(),
+  recordedAt: z.string().min(1),
+  distribution: ChartSchema,
+  timeseries: ChartSchema.optional(),
+  writeups: z.array(RootMeWriteupSchema).default([]),
+});
+
 export const AboutSchema = z.object({
   bio: z.string(),
   formation: z.array(FormationEntrySchema),
   interests: z.array(z.string()),
   cvUrl: z.string().min(1),
 });
+
+// Préfixes de route associés à chaque collection identifiable par id —
+// source unique pour la validation des liens profonds (superRefine
+// ci-dessous) et pour la résolution d'une preuve de compétence vers sa
+// fiche (SkillsList).
+export const PROJECT_PATH_SEGMENT = "projets";
+export const CASE_PATH_SEGMENT = "interventions";
+
+// Résout un id vers l'href de sa fiche projet ou intervention. `null` si
+// l'id n'appartient à aucune des deux collections — le filet de sécurité
+// utilisé par SkillsList pour masquer une compétence dont la preuve ne
+// résout pas, en plus de la validation `skills[].evidence` ci-dessous.
+export function resolveContentHref(
+  id: string,
+  content: { projects: { id: string }[]; cases: { id: string }[] },
+): string | null {
+  if (content.projects.some((project) => project.id === id)) {
+    return `/${PROJECT_PATH_SEGMENT}/${id}`;
+  }
+  if (content.cases.some((c) => c.id === id)) {
+    return `/${CASE_PATH_SEGMENT}/${id}`;
+  }
+  return null;
+}
 
 export const DataSchema = z
   .object({
@@ -157,6 +202,7 @@ export const DataSchema = z
     skills: z.array(SkillSchema),
     explorations: z.array(ExplorationSchema),
     about: AboutSchema,
+    rootMe: RootMeSchema.optional(),
   })
   .superRefine((root, ctx) => {
     const knownIds = new Set([
@@ -174,7 +220,9 @@ export const DataSchema = z
       }
     });
 
-    const idPattern = /^\/(projets|interventions)\/([^/#]+)/;
+    const idPattern = new RegExp(
+      `^/(${PROJECT_PATH_SEGMENT}|${CASE_PATH_SEGMENT})/([^/#]+)`,
+    );
     root.highlights.forEach((highlight, index) => {
       const match = highlight.href.match(idPattern);
       if (match && !knownIds.has(match[2])) {
@@ -198,3 +246,5 @@ export type Skill = z.infer<typeof SkillSchema>;
 export type Exploration = z.infer<typeof ExplorationSchema>;
 export type FormationEntry = z.infer<typeof FormationEntrySchema>;
 export type About = z.infer<typeof AboutSchema>;
+export type RootMeWriteup = z.infer<typeof RootMeWriteupSchema>;
+export type RootMe = z.infer<typeof RootMeSchema>;
