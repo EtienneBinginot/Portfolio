@@ -26,11 +26,17 @@ const MAX_VALUE_LABEL_LINE_HEIGHT = 24;
 export const TICK_LABEL_GAP = 8; // entre l'axe Y et le texte de ses graduations
 export const AXIS_LABEL_GAP = 20; // entre le bas du plot et un label d'axe X
 
+// left doit accueillir la graduation la plus haute, qui porte en plus
+// l'unité/l'échelle (ex: "0 challenges", "1000 (log)") — plus large qu'un
+// simple nombre. 100 laisse la place à ~15 caractères en --fs-xs monospace
+// (12px) avant TICK_LABEL_GAP, ce qui couvre les libellés observés sans
+// tronquer le texte contre le bord gauche du viewBox (cf. Stage 4 QA :
+// "0 challenges" se faisait couper en "enges" avec l'ancienne marge de 44).
 export const MARGIN = {
   top: VALUE_LABEL_OFFSET + MAX_VALUE_LABEL_LINE_HEIGHT,
   right: 16,
   bottom: 44,
-  left: 44,
+  left: 100,
 };
 export const PLOT_W = VIEW_W - MARGIN.left - MARGIN.right;
 export const PLOT_H = VIEW_H - MARGIN.top - MARGIN.bottom;

@@ -39,11 +39,29 @@
   gap: var(--space-4);
 }
 
+// Même famille de marqueur que le wordmark du Navbar et les titres de
+// section de la page Compétences (voir Navbar.module.scss .brand::before,
+// competences/page.module.scss .sectionTitle) : les ancrages structurels de
+// la page (Parcours/Intérêts/Contact) reçoivent le bloc-marqueur, le récit
+// (bio, formation) reste au ton neutre — voir .prose et .formationList plus
+// bas, volontairement sans décor. Accent bleu : page "liens/contact",
+// cohérent avec le bleu déjà par défaut sur PixelButton (CV) et les liens de
+// nav — zone distincte du vert "preuve/compétences" de la page Compétences.
 .sectionTitle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
   font-family: var(--font-pixel), monospace;
   font-size: var(--fs-lg);
   margin: 0;
   color: var(--text);
+
+  &::before {
+    display: inline-block;
+    flex-shrink: 0;
+    @include t.block-marker(var(--accent-blue));
+  }
 }
 
 .formationList {
@@ -55,11 +73,16 @@
   padding: 0;
   max-width: var(--prose-measure);
 
+  // Bordure ink directement sur le fond de page (bg) était quasi invisible :
+  // bg et ink sont deux teintes très proches en luminosité (voir
+  // _colors.scss). Fond --surface derrière, comme partout ailleurs sur le
+  // site où une bordure ink doit se voir (Badge, PixelBorder.panel).
   li {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
     gap: var(--space-4);
+    background: var(--surface);
     border: var(--border-width) solid var(--ink);
     padding: var(--space-2) var(--space-4);
   }
@@ -87,8 +110,31 @@
   padding: 0;
 }
 
+// ContactLinks reste neutre côté composant (partagé avec le Footer, voir
+// ContactLinks.module.scss) : tout l'habillage visuel se pose ici, au niveau
+// de la page, via le `className` transmis. Traitement volontairement plus
+// appuyé que celui du Footer (Footer.module.scss .links a) — sur À propos,
+// mail/GitHub/LinkedIn sont un point focal dédié, pas un utilitaire de pied
+// de page — même mécanique de tas pixel qui claque (stepped(), padding
+// constant dès le repos pour ne jamais déplacer le layout), juste un cran
+// plus épais.
 .links {
   a {
-    @include t.pixel-link();
+    display: inline-block;
+    font-family: var(--font-pixel), monospace;
+    font-size: var(--fs-sm);
+    color: var(--accent-blue);
+    text-decoration: none;
+    padding: var(--space-2) var(--space-3);
+    border-bottom: var(--border-width-thick) solid transparent;
+    @include t.stepped(background-color, base, 2);
+
+    &:hover {
+      color: var(--ink);
+      background: var(--accent-blue);
+      border-bottom-color: var(--accent-cyan);
+    }
+
+    @include t.focus-ring();
   }
 }

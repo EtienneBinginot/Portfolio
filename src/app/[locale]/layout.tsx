@@ -11,6 +11,7 @@ import { routing, type Locale, type LocaleParams } from "@/i18n/routing";
 import { SITE_URL, SITE_NAME, absoluteUrl, localeAlternates } from "@/lib/site";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import PixelField from "@/components/PixelField/PixelField";
 import "@/styles/globals.scss";
 
 // --font-pixel : titres, chiffres d'accroche, UI, navigation.
@@ -108,6 +109,18 @@ export default async function RootLayout({
     >
       <body>
         <NextIntlClientProvider messages={messages}>
+          {/* Coque globale, deux clusters fixed derrière tout le contenu :
+              chacun reste dans son propre coin et sa propre couleur d'accent
+              (doctrine "un accent par zone"), jamais empilés. Bleu en haut à
+              droite = zone nav (écho du bord de header). Vert en bas à
+              gauche, density="sparse" = zone pied de page/contact, plus en
+              retrait puisqu'il vit en permanence à l'écran (position: fixed)
+              même sur les pages longues. Deux instances fixed = deux clusters
+              visibles à tout instant ; les pages peuvent en ajouter une
+              troisième (cyan, rare) au maximum — voir le plan de rework pour
+              la règle des 2-3 clusters/écran. */}
+          <PixelField accent="blue" corner="top-right" />
+          <PixelField accent="green" corner="bottom-left" density="sparse" />
           <Navbar />
           {children}
           <Footer />

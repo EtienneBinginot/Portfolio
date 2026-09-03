@@ -53,9 +53,28 @@
   font-variant-numeric: tabular-nums;
 }
 
+// Petit bloc plein avant le chiffre : marque le résultat mesuré comme une
+// "preuve" plutôt qu'un simple nombre, sans dupliquer l'ombre-bloc déjà
+// portée par PixelBorder.frame (voir mise en garde clip-path dans
+// _mixins.scss — .resultValue n'a pas de clip-path, le mixin s'y pose donc
+// directement).
 .resultValue {
+  position: relative;
+  padding-left: var(--space-4);
   font-size: var(--fs-lg);
   color: var(--accent-green);
+
+  &::before {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    @include t.block-marker(
+      var(--accent-green),
+      var(--space-2),
+      var(--space-2)
+    );
+  }
 }
 
 .resultUnit {

@@ -8,9 +8,11 @@ import HighlightTile from "@/components/HighlightTile/HighlightTile";
 import ProjectCard from "@/components/ProjectCard/ProjectCard";
 import ExperienceCard from "@/components/ExperienceCard/ExperienceCard";
 import JsonLd from "@/components/JsonLd/JsonLd";
+import PixelField from "@/components/PixelField/PixelField";
 import { getData } from "@/lib/data";
 import { routing, type LocaleParams } from "@/i18n/routing";
 import { absoluteUrl, localeAlternates } from "@/lib/site";
+import { cx } from "@/lib/cx";
 import styles from "./page.module.scss";
 
 export async function generateMetadata({
@@ -70,13 +72,22 @@ export default async function Home({ params }: { params: LocaleParams }) {
         }}
       />
       <section className={styles.hero}>
+        {/* Seule instance PixelField propre à cette page (budget Stage 3 :
+            1 max) — accent cyan, resté libre par les 2 clusters globaux
+            (bleu haut-droite, vert bas-gauche, voir layout.tsx). Coin
+            haut-gauche = quasiment sous le nom en haut de page, densité
+            sparse pour ne pas concurrencer le titre. */}
+        <PixelField accent="cyan" corner="top-left" density="sparse" />
         <span className={styles.eyebrow}>{data.meta.lane}</span>
         <h1 className={styles.title}>{data.meta.name}</h1>
         <p className={styles.tagline}>{data.meta.tagline}</p>
       </section>
 
       <section className={styles.section} aria-labelledby="highlights-heading">
-        <h2 id="highlights-heading" className={styles.sectionTitle}>
+        <h2
+          id="highlights-heading"
+          className={cx(styles.sectionTitle, styles.sectionTitleData)}
+        >
           {t("highlightsHeading")}
         </h2>
         <div className={styles.highlightGrid}>

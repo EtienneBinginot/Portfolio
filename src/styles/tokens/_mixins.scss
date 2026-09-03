@@ -60,6 +60,25 @@
     inset $size 0 0 0 $top-color;
 }
 
+// Marqueur bloc devant un titre ("quelques petits carrés à quelques
+// endroits", pas un effet répété partout) : un petit pavé plein, sans ombre
+// — réutilisé par les titres de page/section plutôt que copié à la main
+// dans chaque page.module.scss (wordmark du Navbar compris). Ne pose que le
+// contenu du pseudo-élément (taille/couleur) — la mise en page
+// (inline-flex+gap pour un titre court, position:absolute+padding pour un
+// titre qui peut wrapper sur plusieurs lignes) reste à la charge de
+// l'appelant, car elle varie réellement selon le contexte.
+@mixin block-marker(
+  $bg: c.$accent-blue,
+  $w: var(--space-2),
+  $h: var(--space-4)
+) {
+  content: "";
+  width: $w;
+  height: $h;
+  background: $bg;
+}
+
 // Anneau de focus clavier cohérent avec la palette (au lieu du bleu par
 // défaut du navigateur, qui jure avec forêt/lagon). À poser sur tout élément
 // interactif — bouton, lien de nav, lien de pied de page.
@@ -113,20 +132,31 @@
   @include focus-ring();
 }
 
+// Lien de nav qui claque au survol : un tas de couleur plat, jamais de
+// soulignement animé ni d'ombre — cohérent avec l'interdiction de
+// dithering/flou sur l'interactif. Padding constant dès le repos (jamais
+// ajouté seulement au hover) pour qu'aucun état ne déplace le layout —
+// seules couleur/fond changent, en steps() (jamais de fondu).
 @mixin nav-link($active-class) {
+  position: relative;
+  display: inline-block;
   text-decoration: none;
   color: var(--text-muted);
-  padding-bottom: var(--space-1);
-  border-bottom: var(--border-width) solid transparent;
+  padding: var(--space-1) var(--space-2);
+  border-bottom: b.$border-width-thick solid transparent;
+  @include stepped(background-color, base, 2);
 
   &:hover {
     color: var(--text);
+    background: var(--block-a);
+    border-bottom-color: var(--accent-blue);
   }
 
   @include focus-ring();
 
   &#{$active-class} {
-    color: var(--accent-cyan);
+    color: var(--ink);
+    background: var(--accent-cyan);
     border-bottom-color: var(--accent-cyan);
   }
 }

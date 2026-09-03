@@ -4,6 +4,32 @@
 // rester lisible comme une succession de trames nettes, pas comme une
 // interpolation continue. Exception assumée : le balayage au survol des
 // cartes (PixelBorder.module.scss) est en easing fluide, sur demande
-// explicite — c'est la seule interaction du site à déroger à la règle.
+// explicite — c'est la seule interaction du site à déroger à la règle sur
+// les micro-interactions déclenchées par l'utilisateur.
 
-$motion-duration-base: 240ms; // balayage au survol des cartes
+// Durée de base des micro-interactions déclenchées par l'utilisateur : le
+// balayage au survol des cartes (seule exception en easing fluide, voir
+// PixelBorder.module.scss), et depuis la Stage 2 tout snap en steps() posé
+// via le mixin stepped() (liens de nav, bascule du menu mobile, liens de
+// pied de page...).
+$motion-duration-base: 240ms;
+
+// Deuxième et dernière exception sanctionnée, distincte de celle ci-dessus :
+// la dérive d'ambiance de la texture de fond (PixelField). Cycle très lent
+// (40-60s) pour rester quasi invisible, en steps() (jump-end) côté
+// @keyframes pour garder l'esthétique "trames nettes" même sur ce mouvement
+// continu — jamais un easing fluide. Purement décorative/non-bloquante :
+// aucun contenu réel ne doit dépendre de cette animation pour apparaître, et
+// elle DOIT être coupée par le kill-switch prefers-reduced-motion déjà posé
+// dans globals.scss (animation-duration: 0.001ms !important s'applique
+// automatiquement à tout @keyframes, y compris celui-ci — vérifié sur le
+// composant une fois construit).
+$motion-duration-ambient: 48s;
+
+// Amplitude plafond du parallax pointeur (JS vanilla, voir PixelField) :
+// quelques px seulement, pour rester perçu comme un frémissement subtil et
+// non comme un effet de glisse/drag. Comme la dérive d'ambiance, ce
+// mouvement est réservé à des éléments strictement décoratifs
+// (pointer-events: none) et désactivé sous prefers-reduced-motion et sur
+// les devices sans pointeur fin (voir PixelField.tsx).
+$parallax-max: 6px;

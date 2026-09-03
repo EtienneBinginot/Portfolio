@@ -16,16 +16,24 @@
 //   - Workflow : poser les aplats d'abord, dithering seulement sur les rares
 //     zones qui en ont vraiment besoin.
 
-$bg: #081615; // fond de page
-$surface: #12262a; // cartes, panneaux
-$ink: #060f11; // bordures, contours (le plus sombre de la palette)
-$text: #e7f0ea; // texte principal
-$text-muted: #8fa69c; // texte secondaire, légendes, métadonnées
+$bg: #0b1f1c; // fond de page
+$surface: #163430; // cartes, panneaux
+$ink: #071310; // bordures, contours (le plus sombre de la palette)
+$text: #eef7f1; // texte principal
+$text-muted: #a9c9bc; // texte secondaire, légendes, métadonnées
 
-$accent-green: #4fb477; // données positives
-$accent-blue: #3e8fb0; // liens, navigation
-$accent-cyan: #7fd8c6; // accent rare, mise en avant
+$accent-green: #5fe08a; // données positives
+$accent-blue: #4fb4e8; // liens, navigation
+$accent-cyan: #8ff5df; // accent rare, mise en avant
 
 // Ramp forêt (mêmes teintes, luminosité croissante) : seul terrain autorisé
 // pour du dithering statique.
 $forest-ramp: $ink, $bg, $surface;
+
+// Rampe de blocs de fond (texture PixelField uniquement — jamais pour les
+// cartes/panneaux, qui restent sur $surface). Deux paliers volontairement
+// plus lumineux/saturés que $surface pour lire comme une vraie texture de
+// blocs superposés sur $bg, tout en restant dans la même famille vert/teal :
+// bg -> surface -> block-a -> block-b forme une rampe de 4 marches nettes.
+$block-a: #1f4a42; // premier palier de bloc, juste au-dessus de $surface
+$block-b: #2c6358; // second palier, plus saturé, tirant vers $accent-green

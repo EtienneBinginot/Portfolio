@@ -15,13 +15,29 @@
   gap: var(--space-4);
 }
 
+// Marqueur signature (voir Navbar .brand::before, même gabarit) en absolute
+// plutôt qu'en flex : les titres de fiche projet peuvent wrapper sur
+// plusieurs lignes (contrairement aux headings de liste), l'absolute garde
+// le bloc ancré en haut-gauche au lieu de se centrer verticalement sur tout
+// le bloc de texte. Accent bleu : identité de page, cohérent avec les
+// headings de liste.
 .title {
+  position: relative;
+  padding-left: calc(var(--space-2) + var(--space-3));
   font-family: var(--font-pixel), monospace;
   font-size: clamp(var(--fs-xl), 6vw + 1rem, var(--fs-2xl));
   line-height: var(--lh-tight);
   margin: 0;
   color: var(--text);
   overflow-wrap: break-word;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: var(--space-1);
+    @include t.block-marker(var(--accent-blue));
+  }
 }
 
 .summary {
@@ -69,11 +85,25 @@
   gap: var(--space-4);
 }
 
+// Même marqueur signature que .title, plus petit et en currentColor plutôt
+// qu'une couleur figée : hérite automatiquement du vert/neutre posé par
+// .sectionTitleNarrative/.sectionTitleData (section-title-variants) sans
+// dupliquer la logique de couleur — "layer par-dessus, pas contre" le mixin
+// partagé. display: flex (titres de section courts, jamais de wrap dans les
+// traductions actuelles) plutôt que l'absolute du .title.
 .sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
   font-family: var(--font-pixel), monospace;
   font-size: var(--fs-lg);
   margin: 0;
   color: var(--text);
+
+  &::before {
+    flex-shrink: 0;
+    @include t.block-marker(currentColor);
+  }
 }
 
 @include t.section-title-variants();

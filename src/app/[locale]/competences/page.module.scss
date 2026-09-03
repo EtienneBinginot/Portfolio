@@ -22,9 +22,35 @@
   gap: var(--space-4);
 }
 
+// Marqueur bloc de section, même famille que le wordmark du Navbar
+// (Navbar.module.scss .brand::before) : un petit bloc à côté du titre plutôt
+// qu'un texte nu, pour que le regroupement se lise d'un coup d'œil sans
+// empiler d'autre décor. Accent vert : toute la page Compétences est en zone
+// "preuve/compétences" (doctrine d'accent par zone) — un seul accent, jamais
+// mélangé avec le bleu/cyan sur cette page.
 .sectionTitle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
   font-family: var(--font-pixel), monospace;
   font-size: var(--fs-lg);
+  margin: 0;
+  color: var(--text);
+
+  &::before {
+    display: inline-block;
+    flex-shrink: 0;
+    @include t.block-marker(var(--accent-green));
+  }
+}
+
+// Titre imbriqué (liste d'articles Root-Me) : la section parente porte déjà
+// son marqueur, en reposer un second juste en dessous ferait doublon —
+// discipline de densité, un accent par zone. Reste un titre nu.
+.subsectionTitle {
+  font-family: var(--font-pixel), monospace;
+  font-size: var(--fs-md);
   margin: 0;
   color: var(--text);
 }

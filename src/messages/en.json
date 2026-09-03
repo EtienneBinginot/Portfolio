@@ -101,7 +101,8 @@
   "ExplorationsPage": {
     "metaTitle": "Explorations — Etienne Binginot",
     "metaDescription": "Old projects, prototypes and unfinished experiments — what they aimed to learn.",
-    "heading": "Explorations"
+    "heading": "Explorations",
+    "intro": "Personal prototypes and side experiments, outside of any mission — an open log of what got tried and what it aimed to learn."
   },
   "ExplorationPage": {
     "periodLabel": "Period",
