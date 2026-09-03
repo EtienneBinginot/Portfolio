@@ -1,0 +1,52 @@
+@use "@/styles/tokens" as t;
+
+.link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+
+  @include t.focus-ring();
+
+  &:hover .frame {
+    --pixel-border-color: var(--accent-cyan);
+  }
+}
+
+.frame {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-4);
+}
+
+.period {
+  font-family: var(--font-mono), monospace;
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.title {
+  font-family: var(--font-pixel), monospace;
+  font-size: var(--fs-md);
+  color: var(--text);
+  margin: 0;
+}
+
+.summary {
+  font-family: var(--font-read), sans-serif;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  margin: 0;
+  max-width: var(--prose-measure);
+}
+
+.metric {
+  align-self: flex-start;
+}

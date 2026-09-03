@@ -36,7 +36,8 @@
   "ProjectsPage": {
     "metaTitle": "Projets — Etienne Binginot",
     "metaDescription": "Toutes les fiches projet, preuves mesurées à l'appui.",
-    "heading": "Projets"
+    "heading": "Projets",
+    "explorationsLinkLabel": "Voir aussi mes explorations"
   },
   "ProjectPage": {
     "stackLabel": "Stack technique",
@@ -78,6 +79,17 @@
     "githubLabel": "GitHub",
     "linkedinLabel": "LinkedIn",
     "cvLabel": "Télécharger mon CV"
+  },
+  "ExplorationsPage": {
+    "metaTitle": "Explorations — Etienne Binginot",
+    "metaDescription": "Anciens projets, prototypes et essais inachevés — ce qu'ils visaient à apprendre.",
+    "heading": "Explorations"
+  },
+  "ExplorationPage": {
+    "periodLabel": "Période",
+    "repoLabel": "Voir le dépôt",
+    "metricsHeading": "Chiffres clés",
+    "chartHeading": "Graphique"
   },
   "NotFoundPage": {
     "title": "Page introuvable",
