@@ -15,6 +15,11 @@ type ChartProps = {
   /** "standalone" (défaut) : présentation pleine page. "inline" : largeur
    * contrainte à la mesure de prose et légende plus discrète (MDX). */
   variant?: "standalone" | "inline";
+  /** Libellés traduits de la légende de mise en évidence d'un graphique
+   * `distribution` (voir Distribution.tsx) — sans effet sur les autres
+   * types de graphique. */
+  highlightLabel?: string;
+  otherLabel?: string;
 };
 
 export default function Chart({
@@ -22,6 +27,8 @@ export default function Chart({
   className,
   logScaleLabel,
   variant = "standalone",
+  highlightLabel,
+  otherLabel,
 }: ChartProps) {
   const inline = variant === "inline";
 
@@ -39,7 +46,13 @@ export default function Chart({
         <div data-chart-type={chart.type}>
           {chart.type === "bar-compare" && <BarCompare chart={chart} />}
           {chart.type === "timeseries" && <Timeseries chart={chart} />}
-          {chart.type === "distribution" && <Distribution chart={chart} />}
+          {chart.type === "distribution" && (
+            <Distribution
+              chart={chart}
+              highlightLabel={highlightLabel}
+              otherLabel={otherLabel}
+            />
+          )}
         </div>
       </PixelBorder>
       <figcaption

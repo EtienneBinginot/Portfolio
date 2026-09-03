@@ -6,6 +6,7 @@ import {
   DataSchema,
   ExplorationSchema,
   MetricSchema,
+  RootMeSchema,
 } from "./schema";
 import type { Data } from "./schema";
 
@@ -79,6 +80,72 @@ describe("ChartSchema", () => {
         "value",
       ]);
     }
+  });
+
+  it("accepte un point avec highlight: true", () => {
+    const chart = {
+      ...validChart,
+      series: [
+        {
+          name: "latence",
+          points: [{ label: "avant", value: 30, highlight: true }],
+        },
+      ],
+    };
+    expect(ChartSchema.safeParse(chart).success).toBe(true);
+  });
+});
+
+const validRootMe = {
+  profileUrl: "https://www.root-me.org/exemple",
+  recordedAt: "2026-09-01",
+  distribution: {
+    ...validChart,
+    type: "distribution" as const,
+    series: [
+      {
+        name: "catégories",
+        points: [
+          { label: "Web - Client", value: 12, highlight: true },
+          { label: "Web - Server", value: 9, highlight: true },
+          { label: "Cryptanalyse", value: 4 },
+        ],
+      },
+    ],
+  },
+};
+
+describe("RootMeSchema", () => {
+  it("accepte un bloc minimal sans timeseries, avec writeups par défaut vide", () => {
+    const result = RootMeSchema.safeParse(validRootMe);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.writeups).toEqual([]);
+    }
+  });
+
+  it("accepte un timeseries optionnel", () => {
+    const result = RootMeSchema.safeParse({
+      ...validRootMe,
+      timeseries: { ...validChart, type: "timeseries" as const },
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("rejette un profileUrl invalide", () => {
+    const result = RootMeSchema.safeParse({
+      ...validRootMe,
+      profileUrl: "pas-une-url",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("rejette un writeup sans href valide", () => {
+    const result = RootMeSchema.safeParse({
+      ...validRootMe,
+      writeups: [{ title: "Une faille", href: "pas-une-url" }],
+    });
+    expect(result.success).toBe(false);
   });
 });
 
